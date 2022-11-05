@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.warehouse.bus.mapper.BusSalesbackMapper">
+
+    <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusSalesback">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="customerid" column="customerid" jdbcType="INTEGER"/>
+            <result property="paytype" column="paytype" jdbcType="VARCHAR"/>
+            <result property="salesbacktime" column="salesbacktime" jdbcType="TIMESTAMP"/>
+            <result property="salebackprice" column="salebackprice" jdbcType="DOUBLE"/>
+            <result property="operateperson" column="operateperson" jdbcType="VARCHAR"/>
+            <result property="number" column="number" jdbcType="INTEGER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="goodsid" column="goodsid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,customerid,paytype,
+        salesbacktime,salebackprice,operateperson,
+        number,remark,goodsid
+    </sql>
+</mapper>

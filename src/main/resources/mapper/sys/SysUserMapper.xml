@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.warehouse.sys.mapper.SysUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysUser">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="loginname" column="loginname" jdbcType="VARCHAR"/>
+            <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="INTEGER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="deptid" column="deptid" jdbcType="INTEGER"/>
+            <result property="hiredate" column="hiredate" jdbcType="TIMESTAMP"/>
+            <result property="mgr" column="mgr" jdbcType="INTEGER"/>
+            <result property="available" column="available" jdbcType="INTEGER"/>
+            <result property="ordernum" column="ordernum" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="imgpath" column="imgpath" jdbcType="VARCHAR"/>
+            <result property="salt" column="salt" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,loginname,
+        pwd,address,sex,
+        remark,deptid,hiredate,
+        mgr,available,ordernum,
+        type,imgpath,salt
+    </sql>
+</mapper>

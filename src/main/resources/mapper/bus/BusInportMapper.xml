@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.warehouse.bus.mapper.BusInportMapper">
+
+    <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusInport">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="paytype" column="paytype" jdbcType="VARCHAR"/>
+            <result property="inporttime" column="inporttime" jdbcType="TIMESTAMP"/>
+            <result property="operateperson" column="operateperson" jdbcType="VARCHAR"/>
+            <result property="number" column="number" jdbcType="INTEGER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="inportprice" column="inportprice" jdbcType="DOUBLE"/>
+            <result property="providerid" column="providerid" jdbcType="INTEGER"/>
+            <result property="goodsid" column="goodsid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,paytype,inporttime,
+        operateperson,number,remark,
+        inportprice,providerid,goodsid
+    </sql>
+</mapper>

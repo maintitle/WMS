@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.warehouse.bus.mapper.BusGoodsMapper">
+
+    <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusGoods">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="goodsname" column="goodsname" jdbcType="VARCHAR"/>
+            <result property="providerid" column="providerid" jdbcType="INTEGER"/>
+            <result property="produceplace" column="produceplace" jdbcType="VARCHAR"/>
+            <result property="size" column="size" jdbcType="VARCHAR"/>
+            <result property="goodspackage" column="goodspackage" jdbcType="VARCHAR"/>
+            <result property="productcode" column="productcode" jdbcType="VARCHAR"/>
+            <result property="promitcode" column="promitcode" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="DOUBLE"/>
+            <result property="number" column="number" jdbcType="INTEGER"/>
+            <result property="dangernum" column="dangernum" jdbcType="INTEGER"/>
+            <result property="goodsimg" column="goodsimg" jdbcType="VARCHAR"/>
+            <result property="available" column="available" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,goodsname,providerid,
+        produceplace,size,goodspackage,
+        productcode,promitcode,description,
+        price,number,dangernum,
+        goodsimg,available
+    </sql>
+</mapper>
