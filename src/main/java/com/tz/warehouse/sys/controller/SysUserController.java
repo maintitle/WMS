@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +76,12 @@ public class SysUserController {
         return R.ok();
     }
 
+    @ApiOperation("获取用户信息")
+    @GetMapping("/info")
+    public R getInfo(Principal principal){
+
+    }
+    @ApiOperation("获取验证")
     @GetMapping("/getCode")
     public R getCode() {
         Map<String, Object> code = captcha.getCode();
