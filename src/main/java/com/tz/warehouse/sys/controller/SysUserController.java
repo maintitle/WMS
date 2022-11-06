@@ -1,5 +1,6 @@
 package com.tz.warehouse.sys.controller;
 
+import com.tz.warehouse.sys.common.utils.Captcha;
 import com.tz.warehouse.sys.common.utils.R;
 import com.tz.warehouse.sys.common.valid.AddGroup;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
@@ -27,7 +28,8 @@ public class SysUserController {
     private String tokenHead;
     @Autowired
     private SysUserService sysUserService;
-
+    @Autowired
+    private Captcha captcha;
     /**
      * 登入用户返回token
      *
@@ -62,6 +64,7 @@ public class SysUserController {
 
     /**
      * 更新用户
+     *
      * @param user 用户表单
      * @return 返回状态代码
      */
@@ -70,6 +73,12 @@ public class SysUserController {
     public R update(@RequestBody @Validated(UpdateGroup.class) SysUser user) {
         sysUserService.updateUser(user);
         return R.ok();
+    }
+
+    @GetMapping("/getCode")
+    public R getCode() {
+        Map<String, Object> code = captcha.getCode();
+        return R.ok().put("data", code);
     }
 
 }

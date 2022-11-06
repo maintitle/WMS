@@ -38,7 +38,7 @@ public class AdminUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return sysUser.getPwd();
+        return sysUser.getLoginname();
     }
 
     @Override

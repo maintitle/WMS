@@ -23,6 +23,7 @@
         <jwt.version>0.9.1</jwt.version>
         <hutool.version>5.8.4</hutool.version>
         <knife4j.version>3.0.3</knife4j.version>
+        <captcha.version>1.6.2</captcha.version>
     </properties>
     <dependencies>
         <dependency>
@@ -127,7 +128,14 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>${knife4j.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>${captcha.version}</version>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>

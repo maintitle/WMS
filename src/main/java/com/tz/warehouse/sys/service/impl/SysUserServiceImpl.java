@@ -75,7 +75,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     public List<SysPermission> getResourceList(Long userId) {
         SysUserRole userRole = userRoleService.getRelationRole(userId);
         List<SysRolePermission> rolePermission = rolePermissionService.getRelationPermission(userRole.getRid());
-        List<Long> collect = rolePermission.stream().map(SysRolePermission::getRid).collect(Collectors.toList());
+        List<Long> collect = rolePermission.stream().map(SysRolePermission::getPid).collect(Collectors.toList());
         return sysPermissionService.getPermission(collect);
     }
 

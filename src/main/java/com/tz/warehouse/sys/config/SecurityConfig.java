@@ -31,6 +31,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.
                 formLogin()
+                //.loginPage("/user/login")
                 .and()
                 .csrf()
                 .disable()// 由于使用的是JWT，我们这里不需要csrf
@@ -46,7 +47,8 @@ public class SecurityConfig {
                         "/**/*.css",
                         "/**/*.js",
                         "/swagger-resources/**",
-                        "/v2/api-docs/**"
+                        "/v2/api-docs/**",
+                        "/user/getCode"
                 )
                 .permitAll()
                 .antMatchers("/user/login")// 对登录注册要允许匿名访问
