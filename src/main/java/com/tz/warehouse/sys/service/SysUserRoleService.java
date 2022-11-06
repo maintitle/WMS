@@ -3,6 +3,8 @@ package com.tz.warehouse.sys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.sys.entity.SysUserRole;
 
+import java.util.List;
+
 /**
 * @author lenovo
 * @description 针对表【sys_user_role】的数据库操作Service
@@ -15,5 +17,5 @@ public interface SysUserRoleService extends IService<SysUserRole> {
      * @param userId 用户id
      * @return SysUserRole
      */
-    SysUserRole getRelationRole(Long userId);
+    List<SysUserRole> getRelationRole(Long userId);
 }

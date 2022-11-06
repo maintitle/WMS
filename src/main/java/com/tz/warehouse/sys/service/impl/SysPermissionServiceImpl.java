@@ -10,17 +10,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
-* @author lenovo
-* @description 针对表【sys_permission】的数据库操作Service实现
-* @createDate 2022-11-05 16:31:58
-*/
+ * @author lenovo
+ * @description 针对表【sys_permission】的数据库操作Service实现
+ * @createDate 2022-11-05 16:31:58
+ */
 @Service
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission>
-    implements SysPermissionService{
+        implements SysPermissionService {
 
     @Override
     public List<SysPermission> getPermission(List<Long> collect) {
-       return list(new LambdaQueryWrapper<SysPermission>().in(SysPermission::getId,collect));
+        return list(new LambdaQueryWrapper<SysPermission>().in(SysPermission::getId, collect));
+    }
+
+    @Override
+    public List<SysPermission> getMenus(List<Long> collect) {
+        return list(new LambdaQueryWrapper<SysPermission>()
+                .and(item -> {
+                    item.in(SysPermission::getId, collect).eq(SysPermission::getType, "menu");
+                }));
     }
 }
 

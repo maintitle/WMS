@@ -17,5 +17,5 @@ public interface SysRolePermissionService extends IService<SysRolePermission> {
      * @param rid 角色id
      * @return SysRolePermission
      */
-    List<SysRolePermission> getRelationPermission(Long rid);
+    List<Long> getRelationPermission(List<Long> rid);
 }

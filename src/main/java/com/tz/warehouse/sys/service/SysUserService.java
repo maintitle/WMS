@@ -1,9 +1,9 @@
 package com.tz.warehouse.sys.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysUser;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
@@ -29,4 +29,26 @@ public interface SysUserService extends IService<SysUser> {
      * @param user
      */
     void updateUser(SysUser user);
+
+    /**
+     * 获取用户
+     * @param name
+     * @return
+     */
+    SysUser getUserByUsername(String name);
+
+    /**
+     * 获取菜单列表
+     * @param id
+     * @return
+     */
+    List<SysPermission> getMenus(Long id);
+
+    /**
+     * 获取角色
+     * @param id
+     * @return
+     */
+    List<Long> getRoleList(Long id);
+
 }

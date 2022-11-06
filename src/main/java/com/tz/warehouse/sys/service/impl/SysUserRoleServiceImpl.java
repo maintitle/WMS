@@ -3,9 +3,11 @@ package com.tz.warehouse.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.entity.SysUserRole;
-import com.tz.warehouse.sys.service.SysUserRoleService;
 import com.tz.warehouse.sys.mapper.SysUserRoleMapper;
+import com.tz.warehouse.sys.service.SysUserRoleService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author lenovo
@@ -17,8 +19,8 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         implements SysUserRoleService {
 
     @Override
-    public SysUserRole getRelationRole(Long userId) {
-        return getOne(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUid, userId));
+    public List<SysUserRole> getRelationRole(Long userId) {
+        return list(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUid, userId));
     }
 }
 

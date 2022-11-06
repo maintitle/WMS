@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.common.utils.JwtTokenUtil;
 import com.tz.warehouse.sys.dto.AdminUserDetails;
 import com.tz.warehouse.sys.dto.UserLoginParam;
-import com.tz.warehouse.sys.entity.SysPermission;
-import com.tz.warehouse.sys.entity.SysRolePermission;
-import com.tz.warehouse.sys.entity.SysUser;
-import com.tz.warehouse.sys.entity.SysUserRole;
+import com.tz.warehouse.sys.entity.*;
 import com.tz.warehouse.sys.mapper.SysUserMapper;
 import com.tz.warehouse.sys.service.SysPermissionService;
 import com.tz.warehouse.sys.service.SysRolePermissionService;
@@ -52,6 +49,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
@@ -73,10 +71,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
      */
     @Override
     public List<SysPermission> getResourceList(Long userId) {
-        SysUserRole userRole = userRoleService.getRelationRole(userId);
-        List<SysRolePermission> rolePermission = rolePermissionService.getRelationPermission(userRole.getRid());
-        List<Long> collect = rolePermission.stream().map(SysRolePermission::getPid).collect(Collectors.toList());
-        return sysPermissionService.getPermission(collect);
+        List<Long> roleList = getRoleList(userId);
+        return sysPermissionService.getPermission(rolePermissionService.getRelationPermission(roleList));
     }
 
     @Override
@@ -109,6 +105,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             user.setPwd(passwordEncoder.encode(user.getPwd()));
         }
         baseMapper.updateById(user);
+    }
+
+    @Override
+    public SysUser getUserByUsername(String name) {
+        return getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getLoginname, name));
+    }
+
+    @Override
+    public List<SysPermission> getMenus(Long id) {
+        List<Long> roleList = getRoleList(id);
+        return sysPermissionService.getMenus(rolePermissionService.getRelationPermission(roleList));
+    }
+
+    /**
+     * 获取role id
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Long> getRoleList(Long id) {
+        List<SysUserRole> relationRole = userRoleService.getRelationRole(id);
+        return relationRole.stream().map(SysUserRole::getRid).collect(Collectors.toList());
     }
 }
 

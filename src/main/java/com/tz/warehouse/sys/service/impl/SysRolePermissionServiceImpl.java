@@ -2,13 +2,13 @@ package com.tz.warehouse.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysRolePermission;
-import com.tz.warehouse.sys.service.SysRolePermissionService;
 import com.tz.warehouse.sys.mapper.SysRolePermissionMapper;
+import com.tz.warehouse.sys.service.SysRolePermissionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lenovo
@@ -20,8 +20,9 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
         implements SysRolePermissionService {
 
     @Override
-    public List<SysRolePermission> getRelationPermission(Long rid) {
-        return list(new LambdaQueryWrapper<SysRolePermission>().eq(SysRolePermission::getRid, rid));
+    public List<Long> getRelationPermission(List<Long> rid) {
+        List<SysRolePermission> list = list(new LambdaQueryWrapper<SysRolePermission>().in(SysRolePermission::getRid, rid));
+        return list.stream().map(SysRolePermission::getPid).distinct().collect(Collectors.toList());
     }
 }
 

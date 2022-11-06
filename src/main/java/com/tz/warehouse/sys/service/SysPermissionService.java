@@ -18,4 +18,11 @@ public interface SysPermissionService extends IService<SysPermission> {
      * @return SysPermission
      */
     List<SysPermission> getPermission(List<Long> collect);
+
+    /**
+     * 获取菜单列表
+     * @param collect
+     * @return
+     */
+    List<SysPermission> getMenus(List<Long> collect);
 }
