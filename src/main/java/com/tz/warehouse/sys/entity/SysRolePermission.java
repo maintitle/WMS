@@ -1,11 +1,11 @@
 package com.tz.warehouse.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 
@@ -18,13 +18,12 @@ public class SysRolePermission implements Serializable {
      * 
      */
     @TableId
-    private Integer pid;
+    private Long pid;
 
     /**
      * 
      */
-    @TableId
-    private Integer rid;
+    private Long rid;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

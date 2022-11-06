@@ -1,7 +1,7 @@
 package com.tz.warehouse.sys.service;
 
-import com.tz.warehouse.sys.entity.SysUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tz.warehouse.sys.entity.SysUserRole;
 
 /**
 * @author lenovo
@@ -10,4 +10,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SysUserRoleService extends IService<SysUserRole> {
 
+    /**
+     * 获取角色与用户关系
+     * @param userId 用户id
+     * @return SysUserRole
+     */
+    SysUserRole getRelationRole(Long userId);
 }

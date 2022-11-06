@@ -1,10 +1,13 @@
 package com.tz.warehouse.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.service.SysPermissionService;
 import com.tz.warehouse.sys.mapper.SysPermissionMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author lenovo
@@ -15,6 +18,10 @@ import org.springframework.stereotype.Service;
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission>
     implements SysPermissionService{
 
+    @Override
+    public List<SysPermission> getPermission(List<Long> collect) {
+       return list(new LambdaQueryWrapper<SysPermission>().in(SysPermission::getId,collect));
+    }
 }
 
 

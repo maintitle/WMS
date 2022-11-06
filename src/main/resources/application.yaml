@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher #解决Spring Boot 2.6.x 和Swagger 3.0.0不兼容
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -20,6 +23,25 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   global-config:
     db-config:
-      id-type: auto
+      id-type: ASSIGN_ID
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mySecret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头
+
+huawei:
+  obs:
+    ak: ITZ17YPHDQSMDR6QPTUM # Provide your Access Key
+    sk: h9DLb3bLSWjDnba9No195DlcVLQsNivHBmXSI7kk # Provide your Secret Key
+    endPoint: obs.cn-east-3.myhuaweicloud.com
+    bucketName: mall-tz
+    policy:
+      expire: 300 # 签名有效期(S)
+    maxSize: 10 # 上传文件大小(M)
+    callback: http://localhost:8080/aliyun/oss/callback # 文件上传成功后的回调地址
+    dir:
+      prefix: mall/images/ # 上传文件夹路径前缀

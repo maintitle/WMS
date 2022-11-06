@@ -1,11 +1,13 @@
 package com.tz.warehouse.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 
@@ -13,18 +15,20 @@ import lombok.Data;
  */
 @TableName(value ="sys_user_role")
 @Data
+@ApiModel(value = "用户与角色关系表")
 public class SysUserRole implements Serializable {
     /**
      * 
      */
+    @ApiModelProperty(value = "用户id")
     @TableId
-    private Integer uid;
+    private Long uid;
 
     /**
      * 
      */
-    @TableId
-    private Integer rid;
+    @ApiModelProperty(value = "角色id")
+    private Long rid;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
