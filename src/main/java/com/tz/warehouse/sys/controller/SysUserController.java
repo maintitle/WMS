@@ -6,6 +6,7 @@ import com.tz.warehouse.sys.common.utils.Captcha;
 import com.tz.warehouse.sys.common.utils.R;
 import com.tz.warehouse.sys.common.valid.AddGroup;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
+import com.tz.warehouse.sys.dto.SysMenu;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysRole;
@@ -47,7 +48,7 @@ public class SysUserController {
      * @param user 用户名，密码，验证码
      * @return 返回Token
      */
-    @ApiOperation("登入")
+    @ApiOperation("登录")
     @PostMapping("/login")
     public R login(@RequestBody @Validated UserLoginParam user) {
         String token = sysUserService.login(user);
@@ -86,7 +87,7 @@ public class SysUserController {
         return R.ok();
     }
 
-    @ApiOperation("获取用户信息")
+    @ApiOperation("获取用户信息和菜单")
     @GetMapping("/info")
     public R getInfo(Principal principal) {
         if (ObjectUtils.isEmpty(principal)) {
@@ -100,13 +101,24 @@ public class SysUserController {
         map.put("icon", user.getImgpath());
         //获取菜单列表
         List<SysPermission> menus = sysUserService.getMenus(user.getId());
+        List<SysMenu> sysMenus = menus.stream().map(item -> {
+            SysMenu sysMenu = new SysMenu();
+            sysMenu.setId(item.getId());
+            sysMenu.setName(item.getPercode());
+            sysMenu.setIcon(item.getIcon());
+            sysMenu.setParentId(item.getPid());
+            sysMenu.setTitle(item.getTitle());
+            sysMenu.setHidden(item.getAvailable());
+            return sysMenu;
+        }).collect(Collectors.toList());
+        map.put("menus", sysMenus);
+        //获取角色
         List<Long> roleList = sysUserService.getRoleList(user.getId());
         List<SysRole> roles = sysRoleService.getRoleList(roleList);
         if (CollectionUtils.isNotEmpty(roles)){
             List<String> collect = roles.stream().map(SysRole::getName).collect(Collectors.toList());
             map.put("roles", collect);
         }
-        map.put("menus", menus);
         return R.ok().put("data", map);
     }
 
