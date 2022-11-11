@@ -1,4 +1,7 @@
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher #解决Spring Boot 2.6.x 和Swagger 3.0.0不兼容
@@ -6,16 +9,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: "000000"
-    url: jdbc:mysql://127.0.0.1:3306/warehouse?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/warehouse?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     hikari:
       minimum-idle: 5
       idle-timeout: 180000
       maximum-pool-size: 20
       connection-timeout: 30000
 
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
 server:
   port: 8081
 
@@ -44,4 +44,4 @@ huawei:
     maxSize: 10 # 上传文件大小(M)
     callback: http://localhost:8080/aliyun/oss/callback # 文件上传成功后的回调地址
     dir:
-      prefix: mall/images/ # 上传文件夹路径前缀
+      prefix: wms/images/ # 上传文件夹路径前缀

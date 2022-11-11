@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @TableName sys_user
@@ -79,7 +79,7 @@ public class SysUser implements Serializable {
      * 入职时间
      */
     @ApiModelProperty("入职时间")
-    private LocalDateTime hiredate;
+    private Date hiredate;
 
     /**
      * 上级领导id

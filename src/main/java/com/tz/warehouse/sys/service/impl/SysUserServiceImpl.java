@@ -128,6 +128,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         List<SysUserRole> relationRole = userRoleService.getRelationRole(id);
         return relationRole.stream().map(SysUserRole::getRid).collect(Collectors.toList());
     }
+
+    @Override
+    public SysUser getUserById(Long id) {
+        return getById(id);
+    }
 }
 
 

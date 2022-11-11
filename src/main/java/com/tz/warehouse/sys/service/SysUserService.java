@@ -51,4 +51,10 @@ public interface SysUserService extends IService<SysUser> {
      */
     List<Long> getRoleList(Long id);
 
+    /**
+     * 获取用户信息
+     * @param id
+     * @return
+     */
+    SysUser getUserById(Long id);
 }

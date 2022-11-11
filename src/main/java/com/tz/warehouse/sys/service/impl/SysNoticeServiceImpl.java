@@ -6,6 +6,8 @@ import com.tz.warehouse.sys.service.SysNoticeService;
 import com.tz.warehouse.sys.mapper.SysNoticeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author lenovo
 * @description 针对表【sys_notice】的数据库操作Service实现
@@ -15,6 +17,10 @@ import org.springframework.stereotype.Service;
 public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice>
     implements SysNoticeService{
 
+    @Override
+    public List<SysNotice> getInfo() {
+        return list();
+    }
 }
 
 

@@ -62,6 +62,16 @@ public class SysUserController {
     }
 
     /**
+     * 退出
+     * @return
+     */
+    @ApiOperation("退出")
+    @PostMapping("/logout")
+    public R logout(){
+        return R.ok();
+    }
+
+    /**
      * 插入用户
      *
      * @param user 用户表单
@@ -81,7 +91,7 @@ public class SysUserController {
      * @return 返回状态代码
      */
     @ApiOperation("更新用户")
-    @PutMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody @Validated(UpdateGroup.class) SysUser user) {
         sysUserService.updateUser(user);
         return R.ok();
@@ -99,6 +109,7 @@ public class SysUserController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", user.getName());
         map.put("icon", user.getImgpath());
+        map.put("id", user.getId());
         //获取菜单列表
         List<SysPermission> menus = sysUserService.getMenus(user.getId());
         List<SysMenu> sysMenus = menus.stream().map(item -> {
@@ -122,6 +133,14 @@ public class SysUserController {
         return R.ok().put("data", map);
     }
 
+    @ApiOperation("获取用户信息和菜单")
+    @GetMapping("/infoDetail/{id}")
+    public R getInfoDetail(@PathVariable("id") Long id){
+        SysUser sysUser=sysUserService.getUserById(id);
+        sysUser.setPwd("");
+        sysUser.setSalt("");
+        return R.ok().put("data", sysUser);
+    }
     @ApiOperation("获取验证")
     @GetMapping("/getCode")
     public R getCode() {
