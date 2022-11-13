@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 public @interface FlagValidator {
     int[] value() default {};
 
-    String message() default "{com.tz.gulimall.valid.Flag.message}";
+    String message() default "参数错误";
 
     Class<?>[] groups() default {};
 

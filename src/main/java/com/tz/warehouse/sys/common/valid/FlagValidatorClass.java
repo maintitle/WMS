@@ -20,6 +20,11 @@ public class FlagValidatorClass implements ConstraintValidator<FlagValidator,Int
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {
-        return set.contains(value);
+        // null 不做检验
+        if(value == null){
+            return true;
+        }else {
+            return set.contains(value);
+        }
     }
 }

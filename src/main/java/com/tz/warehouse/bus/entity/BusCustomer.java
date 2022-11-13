@@ -4,8 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import com.tz.warehouse.sys.common.valid.AddGroup;
+import com.tz.warehouse.sys.common.valid.FlagValidator;
+import com.tz.warehouse.sys.common.valid.UpdateGroup;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 
@@ -15,64 +22,82 @@ import lombok.Data;
 @Data
 public class BusCustomer implements Serializable {
     /**
-     * 
+     * 客户ID
      */
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    @ApiModelProperty("客户ID")
+    @NotNull(message = "id不能为空", groups = UpdateGroup.class)
+    private Long id;
 
     /**
      * 
      */
+    @ApiModelProperty("客户昵称")
+    @NotBlank(message = "客户昵称不能为空", groups = AddGroup.class)
     private String customername;
 
     /**
-     * 
+     * 邮编
      */
+    @ApiModelProperty("邮编")
     private String zip;
 
     /**
-     * 
+     * 地址
      */
+    @ApiModelProperty("地址")
     private String address;
 
     /**
-     * 
+     * 客户电话
      */
+    @ApiModelProperty("客户电话")
+    @NotBlank(message = "客户电话不能为空", groups = AddGroup.class)
     private String telephone;
 
     /**
-     * 
+     * 联系人姓名
      */
+    @ApiModelProperty("联系人姓名")
+    @NotBlank(message = "联系人姓名", groups = AddGroup.class)
     private String connectionpersion;
 
     /**
-     * 
+     * 联系人电话
      */
+    @ApiModelProperty("联系人电话")
+    @NotBlank(message = "联系人不能为空", groups = AddGroup.class)
     private String phone;
 
     /**
-     * 
+     * 开户银行
      */
+    @ApiModelProperty("开户银行")
     private String bank;
 
     /**
-     * 
+     * 银行账号
      */
+    @ApiModelProperty("银行账号")
     private String account;
 
     /**
-     * 
+     * 邮箱
      */
+    @ApiModelProperty("邮箱")
     private String email;
 
     /**
-     * 
+     * 传真
      */
+    @ApiModelProperty("传真")
     private String fax;
 
     /**
-     * 
+     * 是否可用(0为不可用,1为可用)
      */
+    @ApiModelProperty("是否可用(0为不可用,1为可用)")
+    @FlagValidator(value = {0,1},groups = {AddGroup.class,UpdateGroup.class})
     private Integer available;
 
     @TableField(exist = false)
