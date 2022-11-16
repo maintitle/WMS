@@ -5,7 +5,7 @@
 <mapper namespace="com.tz.warehouse.bus.mapper.BusCustomerMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusCustomer">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="customername" column="customername" jdbcType="VARCHAR"/>
             <result property="zip" column="zip" jdbcType="VARCHAR"/>
             <result property="address" column="address" jdbcType="VARCHAR"/>

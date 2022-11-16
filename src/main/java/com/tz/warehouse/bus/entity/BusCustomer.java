@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.tz.warehouse.sys.common.valid.AddGroup;
 import com.tz.warehouse.sys.common.valid.FlagValidator;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ import java.io.Serializable;
  */
 @TableName(value ="bus_customer")
 @Data
+@ApiModel("客户实体类")
 public class BusCustomer implements Serializable {
     /**
      * 客户ID

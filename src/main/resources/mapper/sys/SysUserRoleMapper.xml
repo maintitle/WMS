@@ -5,8 +5,8 @@
 <mapper namespace="com.tz.warehouse.sys.mapper.SysUserRoleMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysUserRole">
-            <id property="uid" column="uid" jdbcType="INTEGER"/>
-            <id property="rid" column="rid" jdbcType="INTEGER"/>
+            <id property="uid" column="uid" jdbcType="BIGINT"/>
+            <id property="rid" column="rid" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

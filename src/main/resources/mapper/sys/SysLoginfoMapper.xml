@@ -5,14 +5,16 @@
 <mapper namespace="com.tz.warehouse.sys.mapper.SysLoginfoMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysLoginfo">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="loginname" column="loginname" jdbcType="VARCHAR"/>
-            <result property="loginip" column="loginip" jdbcType="VARCHAR"/>
-            <result property="logintime" column="logintime" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="loginname" column="loginname" jdbcType="VARCHAR"/>
+        <result property="loginid" column="loginid" jdbcType="BIGINT"/>
+        <result property="loginip" column="loginip" jdbcType="VARCHAR"/>
+        <result property="logintime" column="logintime" jdbcType="TIMESTAMP"/>
+
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,loginname,loginip,
+        id,loginname,loginid,loginip,
         logintime
     </sql>
 </mapper>

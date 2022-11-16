@@ -115,7 +115,7 @@ public class SysUserController {
         List<SysMenu> sysMenus = menus.stream().map(item -> {
             SysMenu sysMenu = new SysMenu();
             sysMenu.setId(item.getId());
-            sysMenu.setName(item.getPercode());
+            sysMenu.setName(item.getName());
             sysMenu.setIcon(item.getIcon());
             sysMenu.setParentId(item.getPid());
             sysMenu.setTitle(item.getTitle());

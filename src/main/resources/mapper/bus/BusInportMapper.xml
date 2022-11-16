@@ -5,7 +5,7 @@
 <mapper namespace="com.tz.warehouse.bus.mapper.BusInportMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusInport">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="paytype" column="paytype" jdbcType="VARCHAR"/>
             <result property="inporttime" column="inporttime" jdbcType="TIMESTAMP"/>
             <result property="operateperson" column="operateperson" jdbcType="VARCHAR"/>
@@ -13,7 +13,7 @@
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
             <result property="inportprice" column="inportprice" jdbcType="DOUBLE"/>
             <result property="providerid" column="providerid" jdbcType="INTEGER"/>
-            <result property="goodsid" column="goodsid" jdbcType="INTEGER"/>
+            <result property="goodsid" column="goodsid" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

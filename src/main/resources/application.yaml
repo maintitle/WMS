@@ -26,6 +26,7 @@ mybatis-plus:
       id-type: AUTO
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    cache-enabled: false
 
 jwt:
   tokenHeader: Authorization #JWT存储的请求头

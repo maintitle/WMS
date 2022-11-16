@@ -14,9 +14,6 @@
             <result property="productcode" column="productcode" jdbcType="VARCHAR"/>
             <result property="promitcode" column="promitcode" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="price" column="price" jdbcType="DOUBLE"/>
-            <result property="number" column="number" jdbcType="INTEGER"/>
-            <result property="dangernum" column="dangernum" jdbcType="INTEGER"/>
             <result property="goodsimg" column="goodsimg" jdbcType="VARCHAR"/>
             <result property="available" column="available" jdbcType="INTEGER"/>
     </resultMap>
@@ -25,7 +22,6 @@
         id,goodsname,providerid,
         produceplace,size,goodspackage,
         productcode,promitcode,description,
-        price,number,dangernum,
         goodsimg,available
     </sql>
 </mapper>

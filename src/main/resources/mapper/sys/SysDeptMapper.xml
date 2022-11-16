@@ -5,8 +5,8 @@
 <mapper namespace="com.tz.warehouse.sys.mapper.SysDeptMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysDept">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="pid" column="pid" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="open" column="open" jdbcType="INTEGER"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>

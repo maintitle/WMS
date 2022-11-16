@@ -5,23 +5,20 @@
 <mapper namespace="com.tz.warehouse.sys.mapper.SysPermissionMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysPermission">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="pid" column="pid" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="type" column="type" jdbcType="VARCHAR"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="percode" column="percode" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="icon" column="icon" jdbcType="VARCHAR"/>
-            <result property="href" column="href" jdbcType="VARCHAR"/>
-            <result property="target" column="target" jdbcType="VARCHAR"/>
-            <result property="open" column="open" jdbcType="INTEGER"/>
             <result property="ordernum" column="ordernum" jdbcType="INTEGER"/>
             <result property="available" column="available" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,pid,type,
-        title,percode,icon,
-        href,target,open,
+        title,percode,name,icon,
         ordernum,available
     </sql>
 </mapper>

@@ -5,7 +5,7 @@
 <mapper namespace="com.tz.warehouse.sys.mapper.SysUserMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysUser">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="loginname" column="loginname" jdbcType="VARCHAR"/>
             <result property="pwd" column="pwd" jdbcType="VARCHAR"/>

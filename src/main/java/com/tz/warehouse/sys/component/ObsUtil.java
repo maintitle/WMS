@@ -1,9 +1,9 @@
 package com.tz.warehouse.sys.component;
 
 import com.obs.services.ObsClient;
+import com.obs.services.model.DeleteObjectResult;
 import com.obs.services.model.PostSignatureRequest;
 import com.obs.services.model.PostSignatureResponse;
-import com.tz.warehouse.sys.common.utils.R;
 import com.tz.warehouse.sys.dto.ObsPolicyResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,6 @@ import java.util.Map;
  */
 @Component
 public class ObsUtil {
-
-
     @Value("${huawei.obs.policy.expire}")
     private int HUAWEI_OBS_EXPIRE;
     @Value("${huawei.obs.maxSize}")
@@ -80,15 +78,12 @@ public class ObsUtil {
      *
      * @return
      */
-    public R delete(Map<String, String> params) {
+    public Boolean delete(Map<String, String> params) {
         String url = params.get("url");
         ObsClient obsClient = new ObsClient(HUAWEI_OBS_AK, HUAWEI_OBS_SK, HUAWEI_OBS_ENDPOINT);
         String newUrl = url.replace("https://" + HUAWEI_OBS_BUCKET_NAME + "." + HUAWEI_OBS_ENDPOINT + "/", "");
-        obsClient.deleteObject(HUAWEI_OBS_BUCKET_NAME, newUrl);
-        if (obsClient.doesObjectExist(HUAWEI_OBS_BUCKET_NAME, newUrl)) {//判断是否删除成功
-            return R.error();
-        } else {
-            return R.ok();
-        }
+        DeleteObjectResult deleteObjectResult = obsClient.deleteObject(HUAWEI_OBS_BUCKET_NAME, newUrl);
+        //判断是否删除成功
+        return !obsClient.doesObjectExist(HUAWEI_OBS_BUCKET_NAME, newUrl);
     }
 }

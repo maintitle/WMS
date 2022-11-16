@@ -20,7 +20,11 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
     @Override
     public List<SysPermission> getPermission(List<Long> collect) {
-        return list(new LambdaQueryWrapper<SysPermission>().in(SysPermission::getId, collect));
+        return list(new LambdaQueryWrapper<SysPermission>()
+                .and(item -> {
+                    item.in(SysPermission::getId, collect).eq(SysPermission::getType, "permission");
+                }));
+
     }
 
     @Override

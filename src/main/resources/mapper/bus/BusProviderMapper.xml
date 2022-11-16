@@ -5,12 +5,12 @@
 <mapper namespace="com.tz.warehouse.bus.mapper.BusProviderMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusProvider">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="providername" column="providername" jdbcType="VARCHAR"/>
             <result property="zip" column="zip" jdbcType="VARCHAR"/>
             <result property="address" column="address" jdbcType="VARCHAR"/>
             <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
-            <result property="connectionperson" column="connectionperson" jdbcType="VARCHAR"/>
+            <result property="connectionpersion" column="connectionpersion" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="bank" column="bank" jdbcType="VARCHAR"/>
             <result property="account" column="account" jdbcType="VARCHAR"/>
@@ -21,7 +21,7 @@
 
     <sql id="Base_Column_List">
         id,providername,zip,
-        address,telephone,connectionperson,
+        address,telephone,connectionpersion,
         phone,bank,account,
         email,fax,available
     </sql>
