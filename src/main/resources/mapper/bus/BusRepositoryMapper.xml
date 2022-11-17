@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tz.warehouse.bus.mapper.BusRepositoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.tz.warehouse.bus.entity.BusRepository">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="goodsId" column="goods_id" jdbcType="BIGINT"/>
+            <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+            <result property="wareId" column="ware_id" jdbcType="BIGINT"/>
+            <result property="stock" column="stock" jdbcType="INTEGER"/>
+            <result property="threshold" column="threshold" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,goods_id,goods_name,
+        ware_id,stock,threshold
+    </sql>
+</mapper>
