@@ -1,6 +1,7 @@
 package com.tz.warehouse.bus.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tz.warehouse.sys.common.valid.FlagValidator;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import io.swagger.annotations.ApiModel;
@@ -44,13 +45,13 @@ public class BusRequirement implements Serializable {
      * 采购数量
      */
     @ApiModelProperty("采购数量")
-    private Integer skuNum;
+    private Integer num;
 
     /**
      * 采购金额
      */
     @ApiModelProperty("采购金额")
-    private BigDecimal skuPrice;
+    private BigDecimal price;
 
     /**
      * 仓库id
@@ -70,6 +71,7 @@ public class BusRequirement implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty("创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
@@ -77,6 +79,7 @@ public class BusRequirement implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty("更新时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     @TableField(exist = false)
@@ -97,8 +100,8 @@ public class BusRequirement implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getPurchaseId() == null ? other.getPurchaseId() == null : this.getPurchaseId().equals(other.getPurchaseId()))
             && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
-            && (this.getSkuNum() == null ? other.getSkuNum() == null : this.getSkuNum().equals(other.getSkuNum()))
-            && (this.getSkuPrice() == null ? other.getSkuPrice() == null : this.getSkuPrice().equals(other.getSkuPrice()))
+            && (this.getNum() == null ? other.getNum() == null : this.getNum().equals(other.getNum()))
+            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
             && (this.getWareId() == null ? other.getWareId() == null : this.getWareId().equals(other.getWareId()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -112,8 +115,8 @@ public class BusRequirement implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPurchaseId() == null) ? 0 : getPurchaseId().hashCode());
         result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
-        result = prime * result + ((getSkuNum() == null) ? 0 : getSkuNum().hashCode());
-        result = prime * result + ((getSkuPrice() == null) ? 0 : getSkuPrice().hashCode());
+        result = prime * result + ((getNum() == null) ? 0 : getNum().hashCode());
+        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         result = prime * result + ((getWareId() == null) ? 0 : getWareId().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -130,8 +133,8 @@ public class BusRequirement implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", purchaseId=").append(purchaseId);
         sb.append(", goodsId=").append(goodsId);
-        sb.append(", skuNum=").append(skuNum);
-        sb.append(", skuPrice=").append(skuPrice);
+        sb.append(", num=").append(num);
+        sb.append(", price=").append(price);
         sb.append(", wareId=").append(wareId);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);

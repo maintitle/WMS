@@ -1,6 +1,7 @@
 package com.tz.warehouse.bus.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tz.warehouse.sys.common.valid.FlagValidator;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import io.swagger.annotations.ApiModel;
@@ -49,8 +50,8 @@ public class BusPurchase implements Serializable {
     /**
      * 状态[0新建，1已分配，2正在采购，3已完成，4采购失败]
      */
-    @ApiModelProperty("状态[0新建，1已分配，2正在采购，3已完成，4采购失败]")
-    @FlagValidator(value = {0,1,2,3,4},message = "参数只能为[0新建，1已分配，2正在采购，3已完成，4采购失败]")
+    @ApiModelProperty("状态[0新建，1已分配，已领取，3已完成，4有异常]")
+    @FlagValidator(value = {0,1,2,3,4},message = "参数只能为[0新建，1已分配，已领取，3已完成，4有异常]")
     private Integer status;
 
     /**
@@ -70,6 +71,7 @@ public class BusPurchase implements Serializable {
      */
     @ApiModelProperty("创建日期")
     @TableField(fill = FieldFill.INSERT)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
@@ -77,6 +79,7 @@ public class BusPurchase implements Serializable {
      */
     @ApiModelProperty("更新日期")
     @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     @TableField(exist = false)

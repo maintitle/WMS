@@ -110,7 +110,7 @@ public class BusProviderController {
      * @return
      */
     @ApiOperation("获取供应商名和id")
-    @GetMapping("/getListNameAndId")
+    @GetMapping("/listNameAndId")
     public R getListNameAndId() {
         List<HashMap<String, Object>> listNameAndId = busProviderService.getListNameAndId();
         return R.ok().put("data", listNameAndId);

@@ -2,6 +2,9 @@ package com.tz.warehouse.bus.service;
 
 import com.tz.warehouse.bus.entity.BusPurchase;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tz.warehouse.bus.vo.MergeVo;
+
+import java.util.List;
 
 /**
 * @author lenovo
@@ -10,4 +13,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BusPurchaseService extends IService<BusPurchase> {
 
+    /**
+     * 筛选状态为0新建，1已分配
+     * @return
+     */
+    List<BusPurchase> unreceiveList();
+
+    /**
+     * 合并需求
+     * @param mergeVo
+     */
+    void merge(MergeVo mergeVo);
 }

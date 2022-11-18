@@ -4,6 +4,8 @@ import com.tz.warehouse.bus.entity.BusGoods;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,4 +33,11 @@ public interface BusGoodsService extends IService<BusGoods> {
      * @param busGoods
      */
     void updateAndCheckProvider(BusGoods busGoods);
+
+    /**
+     * 获取商品id和名称
+     * @return
+     */
+    List<HashMap<String, Object>> getListNameAndId();
+
 }

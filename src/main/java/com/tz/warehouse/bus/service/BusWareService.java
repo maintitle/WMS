@@ -4,6 +4,8 @@ import com.tz.warehouse.bus.entity.BusWare;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +21,10 @@ public interface BusWareService extends IService<BusWare> {
      * @return
      */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 获取站点名和id
+     * @return
+     */
+    List<HashMap<String, Object>> getListNameAndId();
 }

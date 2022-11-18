@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,12 @@ public class BusWareController {
     public R delete(@RequestBody List<Long> ids) {
         busWareService.removeBatchByIds(ids);
         return R.ok();
+    }
+
+    @ApiOperation("获取站点名和id")
+    @GetMapping("/listNameAndId")
+    public R getListNameAndId() {
+        List<HashMap<String, Object>> listNameAndId = busWareService.getListNameAndId();
+        return R.ok().put("data", listNameAndId);
     }
 }

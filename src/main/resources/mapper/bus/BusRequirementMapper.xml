@@ -8,8 +8,8 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="purchaseId" column="purchase_id" jdbcType="BIGINT"/>
             <result property="goodsId" column="goods_id" jdbcType="BIGINT"/>
-            <result property="skuNum" column="sku_num" jdbcType="INTEGER"/>
-            <result property="skuPrice" column="sku_price" jdbcType="DECIMAL"/>
+            <result property="num" column="num" jdbcType="INTEGER"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
             <result property="wareId" column="ware_id" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -18,7 +18,7 @@
 
     <sql id="Base_Column_List">
         id,purchase_id,goods_id,
-        sku_num,sku_price,ware_id,
+        num,price,ware_id,
         status,create_time,update_time
     </sql>
 </mapper>

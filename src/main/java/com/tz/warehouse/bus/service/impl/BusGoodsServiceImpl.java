@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tz.warehouse.bus.dto.BusGoodsDto;
+import com.tz.warehouse.bus.vo.BusGoodsDto;
 import com.tz.warehouse.bus.entity.BusGoods;
 import com.tz.warehouse.bus.entity.BusProvider;
 import com.tz.warehouse.bus.mapper.BusGoodsMapper;
@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class BusGoodsServiceImpl extends ServiceImpl<BusGoodsMapper, BusGoods>
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+
         LambdaQueryWrapper<BusGoods> queryWrapper = new LambdaQueryWrapper<>();
         String providerid = (String) params.get("providerid");
         if (StringUtils.isNotEmpty(providerid)) {
@@ -88,6 +90,18 @@ public class BusGoodsServiceImpl extends ServiceImpl<BusGoodsMapper, BusGoods>
             }
         }
         updateById(busGoods);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getListNameAndId() {
+        LambdaQueryWrapper<BusGoods> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BusGoods::getAvailable, 1);
+        return list(queryWrapper).stream().map(item -> {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("goodsId", item.getId());
+            map.put("goodsName", item.getGoodsname());
+            return map;
+        }).collect(Collectors.toList());
     }
 }
 

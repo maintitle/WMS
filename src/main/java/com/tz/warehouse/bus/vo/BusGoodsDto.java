@@ -1,4 +1,4 @@
-package com.tz.warehouse.bus.dto;
+package com.tz.warehouse.bus.vo;
 
 import com.tz.warehouse.bus.entity.BusGoods;
 import lombok.Data;

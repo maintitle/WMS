@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -94,5 +95,11 @@ public class BusGoodsController {
         }).collect(Collectors.toList());
         busGoodsService.updateBatchById(collect);
         return R.ok();
+    }
+    @ApiOperation("获取商品id和名称")
+    @GetMapping("/listNameAndId")
+    public R getListNameAndId() {
+        List<HashMap<String, Object>> listNameAndId = busGoodsService.getListNameAndId();
+        return R.ok().put("data", listNameAndId);
     }
 }
