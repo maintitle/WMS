@@ -2,6 +2,7 @@ package com.tz.warehouse.bus.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tz.warehouse.sys.common.valid.AddGroup;
 import com.tz.warehouse.sys.common.valid.FlagValidator;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import io.swagger.annotations.ApiModel;
@@ -33,32 +34,29 @@ public class BusPurchase implements Serializable {
      * 采购人id
      */
     @ApiModelProperty("采购人id")
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private Long assigneeId;
 
     /**
      * 采购人名
      */
     @ApiModelProperty("采购人名")
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String assigneeName;
 
     /**
      * 联系方式
      */
     @ApiModelProperty("联系方式")
+    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String phone;
 
     /**
      * 状态[0新建，1已分配，2正在采购，3已完成，4采购失败]
      */
     @ApiModelProperty("状态[0新建，1已分配，已领取，3已完成，4有异常]")
-    @FlagValidator(value = {0,1,2,3,4},message = "参数只能为[0新建，1已分配，已领取，3已完成，4有异常]")
+    @FlagValidator(value = {0,1,2,3,4},message = "参数只能为[0新建，1已分配，已领取，3已完成，4有异常]",groups = {AddGroup.class, UpdateGroup.class})
     private Integer status;
-
-    /**
-     * 仓库id
-     */
-    @ApiModelProperty("仓库id")
-    private Long wareId;
 
     /**
      * 总金额
@@ -102,7 +100,6 @@ public class BusPurchase implements Serializable {
             && (this.getAssigneeName() == null ? other.getAssigneeName() == null : this.getAssigneeName().equals(other.getAssigneeName()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getWareId() == null ? other.getWareId() == null : this.getWareId().equals(other.getWareId()))
             && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
@@ -117,7 +114,6 @@ public class BusPurchase implements Serializable {
         result = prime * result + ((getAssigneeName() == null) ? 0 : getAssigneeName().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getWareId() == null) ? 0 : getWareId().hashCode());
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
@@ -135,7 +131,6 @@ public class BusPurchase implements Serializable {
         sb.append(", assigneeName=").append(assigneeName);
         sb.append(", phone=").append(phone);
         sb.append(", status=").append(status);
-        sb.append(", wareId=").append(wareId);
         sb.append(", amount=").append(amount);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

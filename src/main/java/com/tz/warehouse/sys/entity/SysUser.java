@@ -43,6 +43,11 @@ public class SysUser implements Serializable {
     @ApiModelProperty("登入名称")
     @NotBlank(message = "登入名称不能为空", groups = AddGroup.class)
     private String loginname;
+    /**
+     * 电话
+     */
+    @ApiModelProperty("电话")
+    private String phone;
 
     /**
      * 密码
@@ -138,6 +143,7 @@ public class SysUser implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
                 && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
                 && (this.getLoginname() == null ? other.getLoginname() == null : this.getLoginname().equals(other.getLoginname()))
+                && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
                 && (this.getPwd() == null ? other.getPwd() == null : this.getPwd().equals(other.getPwd()))
                 && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
                 && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
@@ -159,6 +165,7 @@ public class SysUser implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getLoginname() == null) ? 0 : getLoginname().hashCode());
+        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getPwd() == null) ? 0 : getPwd().hashCode());
         result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
@@ -183,6 +190,7 @@ public class SysUser implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", loginname=").append(loginname);
+        sb.append(", phone=").append(phone);
         sb.append(", pwd=").append(pwd);
         sb.append(", address=").append(address);
         sb.append(", sex=").append(sex);

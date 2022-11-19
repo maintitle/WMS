@@ -13,6 +13,7 @@ import com.tz.warehouse.sys.entity.SysRole;
 import com.tz.warehouse.sys.entity.SysUser;
 import com.tz.warehouse.sys.service.SysRoleService;
 import com.tz.warehouse.sys.service.SysUserService;
+import com.tz.warehouse.sys.vo.SysUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,4 +149,10 @@ public class SysUserController {
         return R.ok().put("data", code);
     }
 
+    @ApiOperation("获取用户列表")
+    @GetMapping("/listAll")
+    public R listAll(){
+        List<SysUserVo> userVos=sysUserService.getIdAndName();
+        return R.ok().put("data", userVos);
+    }
 }

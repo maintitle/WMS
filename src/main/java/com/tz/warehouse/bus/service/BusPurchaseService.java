@@ -3,8 +3,10 @@ package com.tz.warehouse.bus.service;
 import com.tz.warehouse.bus.entity.BusPurchase;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.bus.vo.MergeVo;
+import com.tz.warehouse.sys.common.utils.PageUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author lenovo
@@ -24,4 +26,29 @@ public interface BusPurchaseService extends IService<BusPurchase> {
      * @param mergeVo
      */
     void merge(MergeVo mergeVo);
+
+    /**
+     * 根据条件返回
+     * @param params
+     * @return
+     */
+    PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 保存检查数据安全
+     * @param busPurchase
+     */
+    void saveAndCheck(BusPurchase busPurchase);
+
+    /**
+     * 更新检查数据安全
+     * @param busPurchase
+     */
+    void updateAndCheck(BusPurchase busPurchase);
+
+    /**
+     * 删除并更新其他表
+     * @param ids
+     */
+    void deleteAndCheck(List<Long> ids);
 }

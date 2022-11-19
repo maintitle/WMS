@@ -2,6 +2,7 @@ package com.tz.warehouse.sys.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.common.utils.JwtTokenUtil;
 import com.tz.warehouse.sys.dto.AdminUserDetails;
@@ -12,6 +13,7 @@ import com.tz.warehouse.sys.service.SysPermissionService;
 import com.tz.warehouse.sys.service.SysRolePermissionService;
 import com.tz.warehouse.sys.service.SysUserRoleService;
 import com.tz.warehouse.sys.service.SysUserService;
+import com.tz.warehouse.sys.vo.SysUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -132,6 +134,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Override
     public SysUser getUserById(Long id) {
         return getById(id);
+    }
+
+    @Override
+    public List<SysUserVo> getIdAndName() {
+        List<SysUserVo> collect = list().stream().map(item -> {
+            SysUserVo userVo = new SysUserVo();
+            userVo.setId(item.getId());
+            if (StringUtils.isNotEmpty(item.getName())) {
+                userVo.setName(item.getName());
+                userVo.setPhone(item.getPhone());
+            }
+            return userVo;
+        }).collect(Collectors.toList());
+        return collect;
     }
 }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysUser;
+import com.tz.warehouse.sys.vo.SysUserVo;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
@@ -57,4 +58,11 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     SysUser getUserById(Long id);
+
+    /**
+     * 查询用户ID和Name
+     * @return
+     */
+    List<SysUserVo> getIdAndName();
+
 }

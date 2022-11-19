@@ -12,16 +12,17 @@ import com.tz.warehouse.bus.entity.BusRequirement;
 import com.tz.warehouse.bus.entity.BusWare;
 import com.tz.warehouse.bus.mapper.BusRequirementMapper;
 import com.tz.warehouse.bus.service.BusGoodsService;
+import com.tz.warehouse.bus.service.BusPurchaseService;
 import com.tz.warehouse.bus.service.BusRequirementService;
 import com.tz.warehouse.bus.service.BusWareService;
 import com.tz.warehouse.bus.vo.BusRequirementDto;
-import com.tz.warehouse.bus.vo.MergeVo;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.Query;
 import com.tz.warehouse.sys.common.utils.RRException;
 import com.tz.warehouse.sys.common.utils.WareConstant;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -42,7 +43,9 @@ public class BusRequirementServiceImpl extends ServiceImpl<BusRequirementMapper,
     private BusWareService wareService;
     @Autowired
     private BusGoodsService goodsService;
-
+    @Autowired
+    @Lazy
+    private BusPurchaseService purchaseService;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         LambdaQueryWrapper<BusRequirement> queryWrapper = new LambdaQueryWrapper<>();
@@ -122,6 +125,11 @@ public class BusRequirementServiceImpl extends ServiceImpl<BusRequirementMapper,
 
     @Override
     public void updateAndCheck(BusRequirement busRequirement) {
+        //禁止在非创建和分配模式中修改状态
+        if(!(busRequirement.getStatus()==0||busRequirement.getStatus()==1)){
+            throw new RRException("不能在非"+WareConstant.PurchaseDetailStatusEnum.CREATED.getMsg()
+            +"和"+WareConstant.PurchaseDetailStatusEnum.ASSIGNED+"修改");
+        }
         busRequirement.setUpdateTime(null);
         busRequirement.setUpdateTime(null);
         if (busRequirement.getWareId() != null) {
@@ -136,6 +144,17 @@ public class BusRequirementServiceImpl extends ServiceImpl<BusRequirementMapper,
                 throw new RRException("商品不存在");
             }
         }
+        //查询采购单是否存在
+        if(busRequirement.getPurchaseId()!=null){
+            BusPurchase byId = purchaseService.getById(busRequirement.getPurchaseId());
+            if(ObjectUtils.isEmpty(byId)){
+                throw new RRException("采购单不存在");
+            }
+        }else {
+            //采购单不存在设置状态为新建
+            busRequirement.setStatus(WareConstant.PurchaseDetailStatusEnum.CREATED.getCode());
+        }
+
         updateById(busRequirement);
     }
 

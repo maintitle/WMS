@@ -47,6 +47,8 @@ public class BusRepository implements Serializable {
     @ApiModelProperty("仓库id")
     private Long wareId;
 
+    @ApiModelProperty("仓库名")
+    private String wareName;
     /**
      * 库存
      */
@@ -78,6 +80,7 @@ public class BusRepository implements Serializable {
                 && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
                 && (this.getGoodsName() == null ? other.getGoodsName() == null : this.getGoodsName().equals(other.getGoodsName()))
                 && (this.getWareId() == null ? other.getWareId() == null : this.getWareId().equals(other.getWareId()))
+                && (this.getWareName() == null ? other.getWareName() == null : this.getWareName().equals(other.getWareName()))
                 && (this.getStock() == null ? other.getStock() == null : this.getStock().equals(other.getStock()))
                 && (this.getThreshold() == null ? other.getThreshold() == null : this.getThreshold().equals(other.getThreshold()));
     }
@@ -90,6 +93,7 @@ public class BusRepository implements Serializable {
         result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
         result = prime * result + ((getGoodsName() == null) ? 0 : getGoodsName().hashCode());
         result = prime * result + ((getWareId() == null) ? 0 : getWareId().hashCode());
+        result = prime * result + ((getWareName() == null) ? 0 : getWareName().hashCode());
         result = prime * result + ((getStock() == null) ? 0 : getStock().hashCode());
         result = prime * result + ((getThreshold() == null) ? 0 : getThreshold().hashCode());
         return result;
@@ -105,6 +109,7 @@ public class BusRepository implements Serializable {
         sb.append(", goodsId=").append(goodsId);
         sb.append(", goodsName=").append(goodsName);
         sb.append(", wareId=").append(wareId);
+        sb.append(", wareName=").append(wareName);
         sb.append(", stock=").append(stock);
         sb.append(", threshold=").append(threshold);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -10,7 +10,6 @@
             <result property="assigneeName" column="assignee_name" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="CHAR"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="wareId" column="ware_id" jdbcType="BIGINT"/>
             <result property="amount" column="amount" jdbcType="DECIMAL"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -18,7 +17,7 @@
 
     <sql id="Base_Column_List">
         id,assignee_id,assignee_name,
-        phone,status,ware_id,
+        phone,status,
         amount,create_time,update_time
     </sql>
 </mapper>

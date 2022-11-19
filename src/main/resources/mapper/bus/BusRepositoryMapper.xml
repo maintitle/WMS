@@ -9,12 +9,13 @@
             <result property="goodsId" column="goods_id" jdbcType="BIGINT"/>
             <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
             <result property="wareId" column="ware_id" jdbcType="BIGINT"/>
+            <result property="wareName" column="ware_name" jdbcType="VARCHAR"/>
             <result property="stock" column="stock" jdbcType="INTEGER"/>
             <result property="threshold" column="threshold" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,goods_id,goods_name,
-        ware_id,stock,threshold
+        ware_id,ware_name,stock,threshold
     </sql>
 </mapper>
