@@ -4,7 +4,6 @@ import com.tz.warehouse.bus.entity.BusRepository;
 import com.tz.warehouse.bus.service.BusRepositoryService;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.R;
-import com.tz.warehouse.sys.common.valid.AddGroup;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,18 +30,10 @@ public class BusRepositoryController {
         return R.ok().put("data", page);
     }
 
-    @ApiOperation("添加库存")
-    @PostMapping("/save")
-    public R save(@RequestBody @Validated(AddGroup.class) BusRepository busRepository){
-        //TODO
-        //repositoryService.saveAndCheck(busRepository);
-        return R.ok();
-    }
     @ApiOperation("更新库存")
     @PostMapping("/update")
     public R update(@RequestBody @Validated(UpdateGroup.class) BusRepository busRepository){
-        //TODO
-        //repositoryService.updateAndCheck(busRepository);
+        repositoryService.updateAndCheck(busRepository);
         return R.ok();
     }
 

@@ -26,4 +26,18 @@ public interface BusRepositoryService extends IService<BusRepository> {
      * @param ids
      */
     void deleteAndCheck(List<Long> ids);
+
+    /**
+     * 更新并检查
+     * @param busRepository
+     */
+    void updateAndCheck(BusRepository busRepository);
+
+    /**
+     * 添加库存
+     * @param goodsId
+     * @param wareId
+     * @param num
+     */
+    void addStock(Long goodsId, Long wareId, Integer num);
 }

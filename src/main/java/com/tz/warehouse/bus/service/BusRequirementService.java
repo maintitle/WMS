@@ -39,4 +39,11 @@ public interface BusRequirementService extends IService<BusRequirement> {
      */
     void deleteAndCheck(List<Long> ids);
 
+    /**
+     *根据PurchaseId获取Requirement
+     * @param ids
+     * @return
+     */
+    List<BusRequirement> listRequirementByPurchaseId(List<Long> ids);
+
 }

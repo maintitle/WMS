@@ -2,6 +2,7 @@ package com.tz.warehouse.bus.mapper;
 
 import com.tz.warehouse.bus.entity.BusRepository;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author lenovo
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface BusRepositoryMapper extends BaseMapper<BusRepository> {
 
+    void addStock(@Param("goodsId") Long goodsId, @Param("wareId") Long wareId, @Param("num") Integer num);
 }
 
 

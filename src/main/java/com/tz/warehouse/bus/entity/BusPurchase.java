@@ -34,21 +34,18 @@ public class BusPurchase implements Serializable {
      * 采购人id
      */
     @ApiModelProperty("采购人id")
-    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private Long assigneeId;
 
     /**
      * 采购人名
      */
     @ApiModelProperty("采购人名")
-    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String assigneeName;
 
     /**
      * 联系方式
      */
     @ApiModelProperty("联系方式")
-    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private String phone;
 
     /**

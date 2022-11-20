@@ -3,6 +3,7 @@ package com.tz.warehouse.bus.service;
 import com.tz.warehouse.bus.entity.BusPurchase;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.bus.vo.MergeVo;
+import com.tz.warehouse.bus.vo.PurchaseDoneVo;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 
 import java.util.List;
@@ -51,4 +52,16 @@ public interface BusPurchaseService extends IService<BusPurchase> {
      * @param ids
      */
     void deleteAndCheck(List<Long> ids);
+
+    /**
+     * 领取采购单
+     * @param ids
+     */
+    void received(List<Long> ids);
+
+    /**
+     * 采购完成
+     * @param doneVo
+     */
+    void done(PurchaseDoneVo doneVo);
 }

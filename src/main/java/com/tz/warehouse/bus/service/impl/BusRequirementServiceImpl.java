@@ -1,6 +1,7 @@
 package com.tz.warehouse.bus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
@@ -125,10 +126,11 @@ public class BusRequirementServiceImpl extends ServiceImpl<BusRequirementMapper,
 
     @Override
     public void updateAndCheck(BusRequirement busRequirement) {
+        LambdaUpdateWrapper<BusRequirement> updateWrapper = new LambdaUpdateWrapper<>();
         //禁止在非创建和分配模式中修改状态
         if(!(busRequirement.getStatus()==0||busRequirement.getStatus()==1)){
-            throw new RRException("不能在非"+WareConstant.PurchaseDetailStatusEnum.CREATED.getMsg()
-            +"和"+WareConstant.PurchaseDetailStatusEnum.ASSIGNED+"修改");
+            throw new RRException("不能在非["+WareConstant.PurchaseDetailStatusEnum.CREATED.getMsg()
+            +"]和["+WareConstant.PurchaseDetailStatusEnum.ASSIGNED.getMsg()+"]中修改");
         }
         busRequirement.setUpdateTime(null);
         busRequirement.setUpdateTime(null);
@@ -147,20 +149,28 @@ public class BusRequirementServiceImpl extends ServiceImpl<BusRequirementMapper,
         //查询采购单是否存在
         if(busRequirement.getPurchaseId()!=null){
             BusPurchase byId = purchaseService.getById(busRequirement.getPurchaseId());
+            updateWrapper.eq(BusRequirement::getId, busRequirement.getId());
             if(ObjectUtils.isEmpty(byId)){
                 throw new RRException("采购单不存在");
             }
         }else {
             //采购单不存在设置状态为新建
             busRequirement.setStatus(WareConstant.PurchaseDetailStatusEnum.CREATED.getCode());
+            updateWrapper.set(BusRequirement::getPurchaseId, null);
+            updateWrapper.eq(BusRequirement::getId, busRequirement.getId());
         }
-
-        updateById(busRequirement);
+        update(busRequirement,updateWrapper);
     }
 
     @Override
     public void deleteAndCheck(List<Long> ids) {
         List<BusRequirement> busRequirements = listByIds(ids);
+        for (BusRequirement requirement : busRequirements) {
+            if (requirement.getStatus() == WareConstant.PurchaseDetailStatusEnum.BUYING.getCode()
+            ) {
+                throw new RRException("此" + WareConstant.PurchaseDetailStatusEnum.BUYING.getMsg()+"不能被删除");
+            }
+        }
         //判断采购单id是否为空
         List<BusRequirement> collect = busRequirements.stream().filter(item -> item.getPurchaseId() != null).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(collect)) {
@@ -170,7 +180,11 @@ public class BusRequirementServiceImpl extends ServiceImpl<BusRequirementMapper,
         }
     }
 
-
+    @Override
+    public List<BusRequirement> listRequirementByPurchaseId(List<Long> ids) {
+        LambdaQueryWrapper<BusRequirement> queryWrapper = new LambdaQueryWrapper<>();
+        return list(queryWrapper.in(BusRequirement::getPurchaseId,ids));
+    }
 
 
 }

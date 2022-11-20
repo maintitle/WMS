@@ -18,4 +18,7 @@
         id,goods_id,goods_name,
         ware_id,ware_name,stock,threshold
     </sql>
+    <update id="addStock">
+        UPDATE `bus_repository` SET stock=stock+#{num} WHERE goods_id=#{goodsId} AND ware_id=#{wareId};
+    </update>
 </mapper>

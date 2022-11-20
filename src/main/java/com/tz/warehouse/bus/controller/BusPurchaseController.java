@@ -3,6 +3,7 @@ package com.tz.warehouse.bus.controller;
 import com.tz.warehouse.bus.entity.BusPurchase;
 import com.tz.warehouse.bus.service.BusPurchaseService;
 import com.tz.warehouse.bus.vo.MergeVo;
+import com.tz.warehouse.bus.vo.PurchaseDoneVo;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.R;
 import com.tz.warehouse.sys.common.valid.AddGroup;
@@ -65,4 +66,26 @@ public class BusPurchaseController {
         purchaseService.deleteAndCheck(ids);
         return R.ok();
     }
+    /**
+     * 领取采购单
+     * @param ids
+     * @return
+     */
+    @PostMapping("/received")
+    public R received(@RequestBody List<Long> ids){
+        purchaseService.received(ids);
+        return R.ok();
+    }
+
+    /**
+     * 完成采购单
+     * @param
+     * @return
+     */
+    @PostMapping("/done")
+    public R finish(@RequestBody PurchaseDoneVo doneVo){
+        purchaseService.done(doneVo);
+        return R.ok();
+    }
+
 }

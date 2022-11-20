@@ -33,7 +33,6 @@ public class BusRequirement implements Serializable {
      * 采购单id
      */
     @ApiModelProperty("采购单id")
-    @TableField(updateStrategy=FieldStrategy.IGNORED)
     private Long purchaseId;
 
     /**
