@@ -1,7 +1,10 @@
 package com.tz.warehouse.sys.service;
 
+import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.entity.SysDept;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Map;
 
 /**
 * @author lenovo
@@ -10,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SysDeptService extends IService<SysDept> {
 
+    /**
+     * 根据条件分页获取部门列表
+     * @param params
+     * @return
+     */
+    PageUtils queryPage(Map<String, Object> params);
 }
