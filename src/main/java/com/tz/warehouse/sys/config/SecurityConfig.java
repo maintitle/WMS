@@ -30,9 +30,8 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.
-                formLogin()
-                //.loginPage("/user/login")
-                .and()
+                formLogin().disable()//禁用登录默认登入界面
+                .logout().disable()//禁用登出默认登入界面
                 .csrf()
                 .disable()// 由于使用的是JWT，我们这里不需要csrf
                 .sessionManagement()// 允许对于网站静态资源的无授权访问
@@ -48,10 +47,10 @@ public class SecurityConfig {
                         "/**/*.js",
                         "/swagger-resources/**",
                         "/v2/api-docs/**",
-                        "/user/getCode"
+                        "/getCode"
                 )
                 .permitAll()
-                .antMatchers("/user/login")// 对登录注册要允许匿名访问
+                .antMatchers("/login")// 对登录注册要允许匿名访问
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
                 .permitAll()

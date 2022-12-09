@@ -66,4 +66,5 @@ public class BusWareController {
         List<HashMap<String, Object>> listNameAndId = busWareService.getListNameAndId();
         return R.ok().put("data", listNameAndId);
     }
+
 }
