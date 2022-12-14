@@ -11,10 +11,9 @@ public class SysUserVo {
     private String name;
     private String loginname;
     private String phone;
-    private String address;
     private Integer sex;
-    private String remark;
     private Integer deptid;
     private Integer available;
     private Integer ordernum;
+    private String role;
 }

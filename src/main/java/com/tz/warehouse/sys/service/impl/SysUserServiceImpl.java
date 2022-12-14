@@ -3,6 +3,7 @@ package com.tz.warehouse.sys.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.common.utils.JwtTokenUtil;
@@ -12,10 +13,7 @@ import com.tz.warehouse.sys.dto.AdminUserDetails;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.*;
 import com.tz.warehouse.sys.mapper.SysUserMapper;
-import com.tz.warehouse.sys.service.SysPermissionService;
-import com.tz.warehouse.sys.service.SysRolePermissionService;
-import com.tz.warehouse.sys.service.SysUserRoleService;
-import com.tz.warehouse.sys.service.SysUserService;
+import com.tz.warehouse.sys.service.*;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +44,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Autowired
     private SysUserRoleService userRoleService;
+    @Autowired
+    private SysRoleService roleService;
     @Autowired
     private SysRolePermissionService rolePermissionService;
     @Autowired
@@ -127,6 +127,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     /**
      * 获取role id
+     *
      * @param id
      * @return
      */
@@ -165,10 +166,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         }
         String key = (String) params.get("key");
         if (StringUtils.isNotEmpty(key)) {
-            queryWrapper.and(obj->obj.likeRight(SysUser::getName, key).or().likeRight(SysUser::getLoginname, key));
+            queryWrapper.and(obj -> obj.likeRight(SysUser::getName, key).or().likeRight(SysUser::getLoginname, key));
         }
         String address = (String) params.get("address");
-        if(StringUtils.isNotEmpty(address)){
+        if (StringUtils.isNotEmpty(address)) {
             queryWrapper.likeRight(SysUser::getAddress, address);
         }
         IPage<SysUser> page = this.page(new Query<SysUser>().getPage(params), queryWrapper);
@@ -177,6 +178,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         List<SysUserVo> collect = records.stream().map(o -> {
             SysUserVo userVo = new SysUserVo();
             BeanUtils.copyProperties(o, userVo);
+            //包装角色信息
+            SysUserRole userRole = userRoleService.getById(o.getId());
+            if (ObjectUtils.isNotEmpty(userRole)) {
+                SysRole role = roleService.getById(userRole.getRid());
+                userVo.setRole(role.getName());
+            }
             return userVo;
         }).collect(Collectors.toList());
         PageUtils pageUtils = new PageUtils(page);
