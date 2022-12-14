@@ -22,7 +22,7 @@ public interface SysPermissionService extends IService<SysPermission> {
     List<SysPermission> getPermission(List<Long> collect);
 
     /**
-     * 获取菜单列表
+     * 根据条件获取菜单列表
      * @param collect
      * @return
      */
@@ -34,5 +34,11 @@ public interface SysPermissionService extends IService<SysPermission> {
      * @return
      */
     PageUtils queryPagePermission(Map<String, Object> params);
+
+    /**
+     * 获取全部菜单
+     * @return
+     */
+    List<SysPermission> getMenusAll();
 
 }

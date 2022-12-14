@@ -1,6 +1,7 @@
 package com.tz.warehouse.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysUser;
@@ -8,6 +9,7 @@ import com.tz.warehouse.sys.vo.SysUserVo;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author lenovo
@@ -65,4 +67,10 @@ public interface SysUserService extends IService<SysUser> {
      */
     List<SysUserVo> getIdAndName();
 
+    /**
+     * 根据条件获取用户
+     * @param params
+     * @return
+     */
+    PageUtils queryPage(Map<String, Object> params);
 }

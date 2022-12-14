@@ -27,13 +27,13 @@ public class SysDeptController {
     @Autowired
     private SysDeptService deptService;
 
-    @GetMapping("listAll")
+    @GetMapping("/listAll")
     @ApiOperation("获取部门全部列表")
     public R getListAll() {
         return R.ok().put("data", deptService.list());
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     @ApiOperation("根据条件分页获取部门列表")
     public R getList(@RequestParam(required = false) Map<String, Object> params) {
         PageUtils page = deptService.queryPage(params);

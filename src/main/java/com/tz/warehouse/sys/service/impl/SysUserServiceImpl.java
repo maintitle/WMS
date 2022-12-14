@@ -2,9 +2,12 @@ package com.tz.warehouse.sys.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.common.utils.JwtTokenUtil;
+import com.tz.warehouse.sys.common.utils.PageUtils;
+import com.tz.warehouse.sys.common.utils.Query;
 import com.tz.warehouse.sys.dto.AdminUserDetails;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.*;
@@ -15,6 +18,7 @@ import com.tz.warehouse.sys.service.SysUserRoleService;
 import com.tz.warehouse.sys.service.SysUserService;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -148,6 +153,35 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             return userVo;
         }).collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        String deptid = (String) params.get("deptid");
+        if (StringUtils.isNotEmpty(deptid)) {
+            queryWrapper.likeRight(SysUser::getDeptid, deptid);
+        }
+        String key = (String) params.get("key");
+        if (StringUtils.isNotEmpty(key)) {
+            queryWrapper.and(obj->obj.likeRight(SysUser::getName, key).or().likeRight(SysUser::getLoginname, key));
+        }
+        String address = (String) params.get("address");
+        if(StringUtils.isNotEmpty(address)){
+            queryWrapper.likeRight(SysUser::getAddress, address);
+        }
+        IPage<SysUser> page = this.page(new Query<SysUser>().getPage(params), queryWrapper);
+        //替换数据
+        List<SysUser> records = page.getRecords();
+        List<SysUserVo> collect = records.stream().map(o -> {
+            SysUserVo userVo = new SysUserVo();
+            BeanUtils.copyProperties(o, userVo);
+            return userVo;
+        }).collect(Collectors.toList());
+        PageUtils pageUtils = new PageUtils(page);
+        pageUtils.setList(collect);
+        return pageUtils;
     }
 }
 

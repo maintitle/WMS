@@ -52,10 +52,19 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         if (StringUtils.isNotEmpty(percode)) {
             queryWrapper.likeRight(SysPermission::getPercode, percode);
         }
+        String pid = (String) params.get("pid");
+        if(StringUtils.isNotEmpty(pid)){
+            queryWrapper.eq(SysPermission::getPid, pid);
+        }
         IPage<SysPermission> page = this.page(new Query<SysPermission>().getPage(params), queryWrapper);
 
         return new PageUtils(page);
 
+    }
+
+    @Override
+    public List<SysPermission> getMenusAll() {
+        return list(new LambdaQueryWrapper<SysPermission>().eq(SysPermission::getType, "menu"));
     }
 }
 

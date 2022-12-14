@@ -2,6 +2,7 @@ package com.tz.warehouse.sys.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.R;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import com.tz.warehouse.sys.dto.SysMenu;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -101,5 +103,12 @@ public class SysUserController {
     public R listAll(){
         List<SysUserVo> userVos=sysUserService.getIdAndName();
         return R.ok().put("data", userVos);
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("根据条件分页获取用户信息列表")
+    public R getList(@RequestParam(required = false) Map<String, Object> params) {
+        PageUtils page = sysUserService.queryPage(params);
+        return R.ok().put("data", page);
     }
 }
