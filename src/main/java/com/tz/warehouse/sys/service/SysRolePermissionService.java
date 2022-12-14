@@ -18,4 +18,11 @@ public interface SysRolePermissionService extends IService<SysRolePermission> {
      * @return SysRolePermission
      */
     List<Long> getRelationPermission(List<Long> rid);
+
+    /**
+     * 修改权限与角色对应关系
+     * @param id
+     * @param pids
+     */
+    void setRelationPermission(Long id, List<Long> pids);
 }

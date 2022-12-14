@@ -64,6 +64,22 @@ public class SysPermissionController {
             map.put("id", obj.getId());
             map.put("pid", obj.getPid());
             map.put("name", obj.getTitle());
+            map.put("type", obj.getType());
+            return map;
+        }).collect(Collectors.toList());
+        return R.ok().put("data", collect);
+    }
+
+    @GetMapping("/All")
+    @ApiOperation("获取全部列表")
+    public R getAll() {
+        List<SysPermission> list = permissionService.list();
+        List<HashMap<String, Object>> collect = list.stream().map(obj -> {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("id", obj.getId());
+            map.put("pid", obj.getPid());
+            map.put("name", obj.getTitle());
+            map.put("type", obj.getType());
             return map;
         }).collect(Collectors.toList());
         return R.ok().put("data", collect);

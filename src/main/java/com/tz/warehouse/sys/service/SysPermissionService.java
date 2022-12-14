@@ -41,4 +41,11 @@ public interface SysPermissionService extends IService<SysPermission> {
      */
     List<SysPermission> getMenusAll();
 
+    /**
+     * 根据pid获取permission
+     * @param ids
+     * @return
+     */
+    List<SysPermission> getPermissionByPid(List<Long> ids);
+
 }

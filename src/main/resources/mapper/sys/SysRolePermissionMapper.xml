@@ -5,11 +5,12 @@
 <mapper namespace="com.tz.warehouse.sys.mapper.SysRolePermissionMapper">
 
     <resultMap id="BaseResultMap" type="com.tz.warehouse.sys.entity.SysRolePermission">
-            <id property="pid" column="pid" jdbcType="BIGINT"/>
-            <id property="rid" column="rid" jdbcType="BIGINT"/>
+        <id property="rid" column="rid" jdbcType="BIGINT"/>
+        <result property="pid" column="pid" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        pid,rid
+        pid
+        ,rid
     </sql>
 </mapper>
