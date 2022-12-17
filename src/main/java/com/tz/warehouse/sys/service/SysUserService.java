@@ -8,6 +8,7 @@ import com.tz.warehouse.sys.entity.SysUser;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface SysUserService extends IService<SysUser> {
     UserDetails loadUserByUsername(String username);
     List<SysPermission> getResourceList(Long adminId);
 
-    String login(UserLoginParam user);
+    String login(UserLoginParam user, HttpServletRequest request);
 
     /**
      * 保存用户信息

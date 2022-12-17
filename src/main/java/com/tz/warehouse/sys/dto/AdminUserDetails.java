@@ -31,6 +31,9 @@ public class AdminUserDetails implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    public SysUser getUser(){
+        return this.sysUser;
+    }
     @Override
     public String getPassword() {
         return sysUser.getPwd();

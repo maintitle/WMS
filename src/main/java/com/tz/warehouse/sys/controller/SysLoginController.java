@@ -9,8 +9,12 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +39,8 @@ public class SysLoginController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public R login(@RequestBody @Validated UserLoginParam user) {
-        String token = sysUserService.login(user);
+    public R login(@RequestBody @Validated UserLoginParam user, HttpServletRequest request) {
+        String token = sysUserService.login(user,request);
         if (token == null) {
             return R.error("用户名或密码错误");
         }

@@ -29,7 +29,7 @@ public class SysLoginfo implements Serializable {
     /**
      *
      */
-    private Long longinid;
+    private Long loginid;
     /**
      *
      */
@@ -58,7 +58,7 @@ public class SysLoginfo implements Serializable {
         SysLoginfo other = (SysLoginfo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
                 && (this.getLoginname() == null ? other.getLoginname() == null : this.getLoginname().equals(other.getLoginname()))
-                && (this.getLonginid() == null ? other.getLonginid() == null : this.getLonginid().equals(other.getLonginid()))
+                && (this.getLoginid() == null ? other.getLoginid() == null : this.getLoginid().equals(other.getLoginid()))
                 && (this.getLoginip() == null ? other.getLoginip() == null : this.getLoginip().equals(other.getLoginip()))
                 && (this.getLogintime() == null ? other.getLogintime() == null : this.getLogintime().equals(other.getLogintime()));
     }
@@ -69,7 +69,7 @@ public class SysLoginfo implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getLoginname() == null) ? 0 : getLoginname().hashCode());
-        result = prime * result + ((getLonginid() == null) ? 0 : getLonginid().hashCode());
+        result = prime * result + ((getLoginid() == null) ? 0 : getLoginid().hashCode());
         result = prime * result + ((getLoginip() == null) ? 0 : getLoginip().hashCode());
         result = prime * result + ((getLogintime() == null) ? 0 : getLogintime().hashCode());
         return result;
@@ -83,7 +83,7 @@ public class SysLoginfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", loginname=").append(loginname);
-        sb.append(", longinid=").append(longinid);
+        sb.append(", longinid=").append(loginid);
         sb.append(", loginip=").append(loginip);
         sb.append(", logintime=").append(logintime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

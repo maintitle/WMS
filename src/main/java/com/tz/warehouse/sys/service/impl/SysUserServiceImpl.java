@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tz.warehouse.sys.common.utils.IPUtils;
 import com.tz.warehouse.sys.common.utils.JwtTokenUtil;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.Query;
@@ -28,6 +29,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -55,6 +58,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private SysLoginfoService loginfoService;
 
 
     @Override
@@ -83,7 +88,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     }
 
     @Override
-    public String login(UserLoginParam user) {
+    public String login(UserLoginParam user, HttpServletRequest request) {
         String token = null;
         try {
             UserDetails userDetails = this.loadUserByUsername(user.getUsername());
@@ -93,6 +98,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
+            //获取用户登入地址
+            String ipAddr = IPUtils.getClientIpAddr(request);
+            //获取user用户信息
+            AdminUserDetails userDetail = (AdminUserDetails) authentication.getPrincipal();
+            SysLoginfo loginfo = new SysLoginfo();
+            loginfo.setLoginname(userDetail.getUser().getLoginname());
+            loginfo.setLoginip(ipAddr);
+            loginfo.setLoginid(userDetail.getUser().getId());
+            loginfo.setLogintime(LocalDateTime.now());
+            loginfoService.save(loginfo);
         } catch (AuthenticationException e) {
             log.warn("登录异常:{}", e.getMessage());
         }
