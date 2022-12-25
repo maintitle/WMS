@@ -1,9 +1,6 @@
 package com.tz.warehouse.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -35,7 +32,10 @@ public class SysNotice implements Serializable {
     /**
      * 
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date createtime;
+    @TableField(fill = FieldFill.UPDATE)
+    private Date updatetime;
 
     /**
      * 
@@ -65,6 +65,7 @@ public class SysNotice implements Serializable {
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
             && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()))
+            && (this.getUpdatetime() == null ? other.getUpdatetime() == null : this.getUpdatetime().equals(other.getUpdatetime()))
             && (this.getOpername() == null ? other.getOpername() == null : this.getOpername().equals(other.getOpername()))
             && (this.getOperid() == null ? other.getOperid() == null : this.getOperid().equals(other.getOperid()));
     }
@@ -77,6 +78,7 @@ public class SysNotice implements Serializable {
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
+        result = prime * result + ((getUpdatetime() == null) ? 0 : getUpdatetime().hashCode());
         result = prime * result + ((getOpername() == null) ? 0 : getOpername().hashCode());
         result = prime * result + ((getOperid() == null) ? 0 : getOperid().hashCode());
         return result;
@@ -92,6 +94,7 @@ public class SysNotice implements Serializable {
         sb.append(", title=").append(title);
         sb.append(", content=").append(content);
         sb.append(", createtime=").append(createtime);
+        sb.append(", updatetime=").append(updatetime);
         sb.append(", opername=").append(opername);
         sb.append(", operid=").append(operid);
         sb.append(", serialVersionUID=").append(serialVersionUID);

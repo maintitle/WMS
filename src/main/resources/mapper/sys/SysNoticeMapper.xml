@@ -9,12 +9,13 @@
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
             <result property="opername" column="opername" jdbcType="VARCHAR"/>
             <result property="operid" column="operid" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,title,content,
-        createtime,opername,operid
+        createtime,updatetime,opername,operid
     </sql>
 </mapper>
