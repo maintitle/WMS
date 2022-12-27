@@ -9,11 +9,12 @@
             <result property="gid" column="gid" jdbcType="BIGINT"/>
             <result property="pid" column="pid" jdbcType="BIGINT"/>
             <result property="uid" column="uid" jdbcType="BIGINT"/>
+            <result property="wid" column="wid" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,gid,pid,
-        uid,status
+        uid,wid,status
     </sql>
 </mapper>
