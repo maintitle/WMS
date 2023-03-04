@@ -16,4 +16,5 @@ public class SysUserVo {
     private Integer available;
     private Integer ordernum;
     private String role;
+    private Long rid;
 }

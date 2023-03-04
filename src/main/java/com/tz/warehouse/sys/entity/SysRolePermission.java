@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,12 +16,15 @@ import java.io.Serializable;
  */
 @TableName(value ="sys_role_permission")
 @Data
+@ApiModel("角色权限实体类")
 public class SysRolePermission implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("角色id")
     private Long rid;
+    @ApiModelProperty("权限id")
     private String pid;
 
     @TableField(exist = false)

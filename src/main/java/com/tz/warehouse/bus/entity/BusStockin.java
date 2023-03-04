@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,32 +16,39 @@ import java.io.Serializable;
  */
 @TableName(value ="bus_stockin")
 @Data
+@ApiModel("入库实体类")
 public class BusStockin implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("入库id")
     private Long id;
 
     /**
      * 商品id
      */
+    @ApiModelProperty("商品id")
     private Long gid;
 
     /**
      * 单号
      */
+    @ApiModelProperty("单号")
     private Long pid;
 
     /**
      * 操作人
      */
+    @ApiModelProperty("操作人")
     private Long uid;
+    @ApiModelProperty("仓库ID")
     private Long wid;
 
     /**
      * 状态
      */
+    @ApiModelProperty("状态")
     private Integer status;
 
     @TableField(exist = false)

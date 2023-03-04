@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.tz.warehouse.sys.common.valid.AddGroup;
 import com.tz.warehouse.sys.common.valid.FlagValidator;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
@@ -21,11 +22,12 @@ import java.util.Date;
  */
 @TableName(value = "sys_user")
 @Data
+@ApiModel("用户实体类")
 public class SysUser implements Serializable {
     /**
      * 用户ID
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty("用户ID")
     @NotNull(message = "id不能为空", groups = UpdateGroup.class)
     private Long id;

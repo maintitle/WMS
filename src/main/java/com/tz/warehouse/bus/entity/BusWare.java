@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 @TableName(value ="bus_ware")
 @Data
-@ApiModel("查库实体类")
+@ApiModel("仓库实体类")
 public class BusWare implements Serializable {
     /**
      * 仓库id

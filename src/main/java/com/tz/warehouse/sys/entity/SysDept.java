@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,51 +17,61 @@ import java.time.LocalDateTime;
  */
 @TableName(value ="sys_dept")
 @Data
+@ApiModel("部门实体类")
 public class SysDept implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("部门id")
     private Long id;
 
     /**
      * 
      */
+    @ApiModelProperty("父id")
     private Long pid;
 
     /**
      * 
      */
+    @ApiModelProperty("部门名")
     private String name;
 
     /**
      * 
      */
+    @ApiModelProperty("是否打开")
     private Integer open;
 
     /**
      * 
      */
+    @ApiModelProperty("备注")
     private String remark;
 
     /**
      * 
      */
+    @ApiModelProperty("地址")
     private String address;
 
     /**
      * 状态【0不可用1可用】
      */
+    @ApiModelProperty("状态")
     private Integer available;
 
     /**
      * 排序码【为了调试显示顺序】
      */
+    @ApiModelProperty("排序码")
     private Integer ordernum;
 
     /**
      * 
      */
+    @ApiModelProperty("创建时间")
     private LocalDateTime createtime;
 
     @TableField(exist = false)

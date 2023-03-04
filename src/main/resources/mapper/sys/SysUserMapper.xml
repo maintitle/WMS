@@ -30,4 +30,7 @@
         mgr,available,ordernum,
         type,imgpath,salt
     </sql>
+    <select id="selectLoginName" resultType="java.lang.String">
+        select loginname from sys_user
+    </select>
 </mapper>

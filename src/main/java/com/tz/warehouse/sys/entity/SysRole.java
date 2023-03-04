@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,21 +17,25 @@ import java.time.LocalDateTime;
  */
 @TableName(value ="sys_role")
 @Data
+@ApiModel("角色实体类")
 public class SysRole implements Serializable {
     /**
      * 
      */
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("角色id")
     private Long id;
 
     /**
      * 
      */
+    @ApiModelProperty("角色名")
     private String name;
 
     /**
      * 
      */
+    @ApiModelProperty("备注")
     private String remark;
 
     /**
@@ -40,6 +46,7 @@ public class SysRole implements Serializable {
     /**
      * 
      */
+    @ApiModelProperty("创建时间")
     private LocalDateTime createtime;
 
     @TableField(exist = false)

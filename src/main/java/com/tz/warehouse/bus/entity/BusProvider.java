@@ -28,6 +28,7 @@ public class BusProvider implements Serializable {
      */
     @NotNull(message = "id不能为空", groups = UpdateGroup.class)
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("供应商ID")
     private Long id;
 
     /**

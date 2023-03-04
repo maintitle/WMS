@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,10 +92,8 @@ public class SysUserController {
     @ApiOperation("获取用户信息和菜单")
     @GetMapping("/infoDetail/{id}")
     public R getInfoDetail(@PathVariable("id") Long id){
-        SysUser sysUser=sysUserService.getUserById(id);
-        sysUser.setPwd("");
-        sysUser.setSalt("");
-        return R.ok().put("data", sysUser);
+        SysUserVo sysUserVo=sysUserService.getUserById(id);
+        return R.ok().put("data", sysUserVo);
     }
 
 
@@ -110,5 +109,19 @@ public class SysUserController {
     public R getList(@RequestParam(required = false) Map<String, Object> params) {
         PageUtils page = sysUserService.queryPage(params);
         return R.ok().put("data", page);
+    }
+
+    @PostMapping("/save")
+    @ApiOperation("保存用户")
+    public R save(@RequestBody SysUser sysUser){
+        sysUserService.saveUser(sysUser);
+        return R.ok();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除用户")
+    public R delete(@RequestBody ArrayList<Long> ids){
+        sysUserService.removeBatchByIds(ids);
+        return R.ok();
     }
 }

@@ -3,6 +3,8 @@ package com.tz.warehouse.bus.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,32 +15,39 @@ import java.io.Serializable;
  */
 @TableName(value ="bus_stockout")
 @Data
+@ApiModel("出库实体类")
 public class BusStockout implements Serializable {
     /**
      * 
      */
     @TableId
+    @ApiModelProperty("出库id")
     private Long id;
 
     /**
      * 商品
      */
+    @ApiModelProperty("商品id")
     private Long gid;
 
     /**
      * 客户
      */
+    @ApiModelProperty("客户id")
     private Long cid;
 
     /**
      * 用户
      */
+    @ApiModelProperty("用户id")
     private Long uid;
+    @ApiModelProperty("仓库id")
     private Long wid;
 
     /**
      * 状态
      */
+    @ApiModelProperty("状态")
     private Integer status;
 
     @TableField(exist = false)

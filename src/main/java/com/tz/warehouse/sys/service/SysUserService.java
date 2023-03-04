@@ -60,7 +60,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param id
      * @return
      */
-    SysUser getUserById(Long id);
+    SysUserVo getUserById(Long id);
 
     /**
      * 查询用户ID和Name
@@ -74,4 +74,6 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveUser(SysUser sysUser);
 }

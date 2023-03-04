@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tz.warehouse.sys.common.utils.IPUtils;
-import com.tz.warehouse.sys.common.utils.JwtTokenUtil;
-import com.tz.warehouse.sys.common.utils.PageUtils;
-import com.tz.warehouse.sys.common.utils.Query;
+import com.tz.warehouse.sys.common.utils.*;
 import com.tz.warehouse.sys.dto.AdminUserDetails;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.*;
@@ -31,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -153,8 +151,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     }
 
     @Override
-    public SysUser getUserById(Long id) {
-        return getById(id);
+    public SysUserVo getUserById(Long id) {
+        SysUser byId = getById(id);
+        SysUserVo userVo = new SysUserVo();
+        BeanUtils.copyProperties(byId, userVo);
+        //包装角色信息
+        SysUserRole userRole = userRoleService.getById(id);
+        if (ObjectUtils.isNotEmpty(userRole)){
+            SysRole role = roleService.getById(userRole.getRid());
+            userVo.setRole(role.getName());
+            userVo.setRid(role.getId());
+        }
+
+
+        return userVo;
     }
 
     @Override
@@ -204,6 +214,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         PageUtils pageUtils = new PageUtils(page);
         pageUtils.setList(collect);
         return pageUtils;
+    }
+
+    @Override
+    public void saveUser(SysUser sysUser) {
+        ArrayList<String> userLoginName = baseMapper.selectLoginName();
+        // 查询是否有重复的登入名
+        if(userLoginName.contains(sysUser.getLoginname())){
+            throw new RRException("duplicationLoginName", 500);
+        }
+        save(sysUser);
     }
 }
 

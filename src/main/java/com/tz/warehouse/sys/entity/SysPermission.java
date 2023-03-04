@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,50 +15,60 @@ import java.io.Serializable;
  */
 @TableName(value = "sys_permission")
 @Data
+@ApiModel("权限实体类")
 public class SysPermission implements Serializable {
     /**
      *
      */
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("权限id")
     private Long id;
 
     /**
      *
      */
+    @ApiModelProperty("父级id")
     private Long pid;
 
     /**
      * 权限类型[menu/permission]
      */
+    @ApiModelProperty("权限类型")
     private String type;
 
     /**
      *
      */
+    @ApiModelProperty("菜单名称")
     private String title;
 
     /**
      * 权限编码[只有type= permission才有  user:view]
      */
+    @ApiModelProperty("权限编码")
     private String percode;
 
     /*
      *
      */
+    @ApiModelProperty("菜单简称名称")
     private String name;
     /**
      *
      */
+    @ApiModelProperty("图标")
     private String icon;
 
     /**
      *
      */
+    @ApiModelProperty("排序")
     private Integer ordernum;
 
     /**
      * 状态【0不可用1可用】
      */
+    @ApiModelProperty("状态")
     private Integer available;
 
     @TableField(exist = false)
