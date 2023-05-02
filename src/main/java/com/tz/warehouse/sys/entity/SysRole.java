@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 
@@ -47,7 +47,7 @@ public class SysRole implements Serializable {
      * 
      */
     @ApiModelProperty("创建时间")
-    private LocalDateTime createtime;
+    private Date createtime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

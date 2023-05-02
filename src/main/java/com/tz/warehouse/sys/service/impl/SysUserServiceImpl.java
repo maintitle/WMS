@@ -1,6 +1,5 @@
 package com.tz.warehouse.sys.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
@@ -12,6 +11,7 @@ import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.*;
 import com.tz.warehouse.sys.mapper.SysUserMapper;
 import com.tz.warehouse.sys.service.*;
+import com.tz.warehouse.sys.vo.SysUserPwdVo;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -121,7 +121,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     public void updateUser(SysUser user) {
-        if (!StrUtil.isEmpty(user.getPwd())) {
+        SysUser sysUser = baseMapper.selectById(user.getId());
+        if(sysUser==null){
+            throw new RRException("User dose Not Exist", 500);
+        }
+        if(StringUtils.isNotEmpty(user.getPwd())){
             user.setPwd(passwordEncoder.encode(user.getPwd()));
         }
         baseMapper.updateById(user);
@@ -224,6 +228,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             throw new RRException("duplicationLoginName", 500);
         }
         save(sysUser);
+    }
+
+    @Override
+    public void updatePwdById(SysUserPwdVo userPwdVo) {
+        if(userPwdVo==null){
+            throw new RRException("User is Null", 500);
+        }
+        if(StringUtils.isEmpty(userPwdVo.getOldPwd())&&StringUtils.isEmpty(userPwdVo.getPwd())){
+            throw new RRException("Password is Null", 500);
+        }
+        SysUser sysUser = baseMapper.selectById(userPwdVo.getId());
+        if(sysUser==null){
+            throw new RRException("User does Not Exist", 500);
+        }
+        if(!passwordEncoder.matches(userPwdVo.getOldPwd(), sysUser.getPwd())){
+            throw new RRException("Password Error", 500);
+        }
+        sysUser.setPwd(passwordEncoder.encode(userPwdVo.getPwd()));
+        baseMapper.updateById(sysUser);
     }
 }
 

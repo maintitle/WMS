@@ -11,6 +11,7 @@ import com.tz.warehouse.sys.entity.SysRole;
 import com.tz.warehouse.sys.entity.SysUser;
 import com.tz.warehouse.sys.service.SysRoleService;
 import com.tz.warehouse.sys.service.SysUserService;
+import com.tz.warehouse.sys.vo.SysUserPwdVo;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,7 +53,12 @@ public class SysUserController {
         sysUserService.updateUser(user);
         return R.ok();
     }
-
+    @ApiOperation("更新用户")
+    @PostMapping("/updatePwd")
+    public R updatePwd(@RequestBody SysUserPwdVo user) {
+        sysUserService.updatePwdById(user);
+        return R.ok();
+    }
     @ApiOperation("获取用户信息和菜单")
     @GetMapping("/info")
     public R getInfo(Principal principal) {
@@ -124,4 +130,6 @@ public class SysUserController {
         sysUserService.removeBatchByIds(ids);
         return R.ok();
     }
+
+
 }

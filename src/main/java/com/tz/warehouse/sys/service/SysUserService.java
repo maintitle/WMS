@@ -5,6 +5,7 @@ import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysUser;
+import com.tz.warehouse.sys.vo.SysUserPwdVo;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -76,4 +77,6 @@ public interface SysUserService extends IService<SysUser> {
     PageUtils queryPage(Map<String, Object> params);
 
     void saveUser(SysUser sysUser);
+
+    void updatePwdById(SysUserPwdVo userPwdVo);
 }
