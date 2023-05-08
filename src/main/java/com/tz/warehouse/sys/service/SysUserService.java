@@ -2,6 +2,7 @@ package com.tz.warehouse.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tz.warehouse.sys.common.utils.PageUtils;
+import com.tz.warehouse.sys.dto.SysUserDto;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysUser;
@@ -33,7 +34,7 @@ public interface SysUserService extends IService<SysUser> {
      * 更新用户信息
      * @param user
      */
-    void updateUser(SysUser user);
+    void updateUser(SysUserDto user);
 
     /**
      * 获取用户

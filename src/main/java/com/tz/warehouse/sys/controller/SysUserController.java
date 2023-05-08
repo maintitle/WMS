@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.R;
-import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import com.tz.warehouse.sys.dto.SysMenu;
+import com.tz.warehouse.sys.dto.SysUserDto;
 import com.tz.warehouse.sys.entity.SysPermission;
 import com.tz.warehouse.sys.entity.SysRole;
 import com.tz.warehouse.sys.entity.SysUser;
@@ -16,7 +16,6 @@ import com.tz.warehouse.sys.vo.SysUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -49,11 +48,11 @@ public class SysUserController {
      */
     @ApiOperation("更新用户")
     @PostMapping("/update")
-    public R update(@RequestBody @Validated(UpdateGroup.class) SysUser user) {
+    public R update(@RequestBody SysUserDto user) {
         sysUserService.updateUser(user);
         return R.ok();
     }
-    @ApiOperation("更新用户")
+    @ApiOperation("更新密码")
     @PostMapping("/updatePwd")
     public R updatePwd(@RequestBody SysUserPwdVo user) {
         sysUserService.updatePwdById(user);
@@ -81,7 +80,7 @@ public class SysUserController {
             sysMenu.setIcon(item.getIcon());
             sysMenu.setParentId(item.getPid());
             sysMenu.setTitle(item.getTitle());
-            sysMenu.setHidden(item.getAvailable());
+            sysMenu.setHidden(item.getHidden());
             return sysMenu;
         }).collect(Collectors.toList());
         map.put("menus", sysMenus);

@@ -28,7 +28,7 @@ public class SysUserRole implements Serializable {
      * 
      */
     @ApiModelProperty(value = "角色id")
-    private Long rid;
+    private String rid;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

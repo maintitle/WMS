@@ -64,7 +64,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
     @Override
     public List<SysPermission> getMenusAll() {
-        return list(new LambdaQueryWrapper<SysPermission>().eq(SysPermission::getType, "menu"));
+        return list(new LambdaQueryWrapper<SysPermission>().eq(SysPermission::getType, "menu").eq(SysPermission::getAvailable,1));
     }
 
     @Override

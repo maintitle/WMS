@@ -64,7 +64,8 @@ public class SysPermission implements Serializable {
      */
     @ApiModelProperty("排序")
     private Integer ordernum;
-
+    @ApiModelProperty("隐藏")
+    private Integer hidden;
     /**
      * 状态【0不可用1可用】
      */

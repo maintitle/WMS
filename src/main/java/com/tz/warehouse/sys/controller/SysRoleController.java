@@ -3,6 +3,7 @@ package com.tz.warehouse.sys.controller;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.R;
 import com.tz.warehouse.sys.common.valid.AddGroup;
+import com.tz.warehouse.sys.common.valid.FlagValidator;
 import com.tz.warehouse.sys.common.valid.UpdateGroup;
 import com.tz.warehouse.sys.entity.SysRole;
 import com.tz.warehouse.sys.service.SysRolePermissionService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by TangZhen on 2022/12/5
@@ -66,6 +68,24 @@ public class SysRoleController {
     @PostMapping("/setRoleRelationPermission")
     public R setRoleRelationPermission(@RequestParam("id") Long id,@RequestBody List<Long> pids){
         rolePermissionService.setRelationPermission(id,pids);
+        return R.ok();
+    }
+
+    @ApiOperation("获取id和name")
+    @GetMapping("/getIdAndNameList")
+    public R getIdAndNameList(){
+       return R.ok().put("data",roleService.getIdAndNameList());
+    }
+    @ApiOperation("批量更改角色状态")
+    @PostMapping("/update/status")
+    public R updateStatus(@RequestBody List<Long> ids,@RequestParam @Validated @FlagValidator(value = {0,1}) Integer status){
+        List<SysRole> collect = ids.stream().map(id -> {
+            SysRole role = new SysRole();
+            role.setId(id);
+            role.setAvailable(status);
+            return role;
+        }).collect(Collectors.toList());
+        roleService.updateBatchById(collect);
         return R.ok();
     }
 }

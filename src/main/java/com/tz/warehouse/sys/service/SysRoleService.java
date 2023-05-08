@@ -3,6 +3,7 @@ package com.tz.warehouse.sys.service;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tz.warehouse.sys.vo.SysRoleInfoVo;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,6 @@ public interface SysRoleService extends IService<SysRole> {
      * @return
      */
     PageUtils queryPage(Map<String, Object> params);
+
+    List<SysRoleInfoVo> getIdAndNameList();
 }

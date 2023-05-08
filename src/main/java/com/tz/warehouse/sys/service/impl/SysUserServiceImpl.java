@@ -2,15 +2,18 @@ package com.tz.warehouse.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.common.utils.*;
 import com.tz.warehouse.sys.dto.AdminUserDetails;
+import com.tz.warehouse.sys.dto.SysUserDto;
 import com.tz.warehouse.sys.dto.UserLoginParam;
 import com.tz.warehouse.sys.entity.*;
 import com.tz.warehouse.sys.mapper.SysUserMapper;
 import com.tz.warehouse.sys.service.*;
+import com.tz.warehouse.sys.vo.SysRoleInfoVo;
 import com.tz.warehouse.sys.vo.SysUserPwdVo;
 import com.tz.warehouse.sys.vo.SysUserVo;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -120,15 +124,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     }
 
     @Override
-    public void updateUser(SysUser user) {
-        SysUser sysUser = baseMapper.selectById(user.getId());
-        if(sysUser==null){
+    public void updateUser(SysUserDto userDto) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<SysUser>().eq(SysUser::getId, userDto.getId());
+        Long count = baseMapper.selectCount(queryWrapper);
+        if (count <= 0) {
             throw new RRException("User dose Not Exist", 500);
         }
-        if(StringUtils.isNotEmpty(user.getPwd())){
-            user.setPwd(passwordEncoder.encode(user.getPwd()));
+        if (StringUtils.isNotEmpty(userDto.getPwd())) {
+            userDto.setPwd(passwordEncoder.encode(userDto.getPwd()));
         }
-        baseMapper.updateById(user);
+        if(CollectionUtils.isNotEmpty(userDto.getRole())){
+            SysUserRole userRole = new SysUserRole();
+            userRole.setUid(userDto.getId());
+            userRole.setRid(String.join(";", userDto.getRole()));
+            userRoleService.updateById(userRole);
+        }
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(userDto,sysUser);
+        baseMapper.updateById(sysUser);
     }
 
     @Override
@@ -150,8 +163,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
      */
     @Override
     public List<Long> getRoleList(Long id) {
-        List<SysUserRole> relationRole = userRoleService.getRelationRole(id);
-        return relationRole.stream().map(SysUserRole::getRid).collect(Collectors.toList());
+        SysUserRole relationRole = userRoleService.getById(id);
+        if (ObjectUtils.isNotEmpty(relationRole) && StringUtils.isNotEmpty(relationRole.getRid())) {
+            return Arrays.stream(relationRole.getRid().split(";")).map(Long::valueOf).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public List<SysRoleInfoVo> getRoleInfoVo(Long id) {
+        List<Long> roleIds = getRoleList(id);
+        if (CollectionUtils.isNotEmpty(roleIds)) {
+            List<SysRole> roleList = roleService.getRoleList(roleIds);
+            List<SysRoleInfoVo> sysRoleInfoVos = new ArrayList<>();
+            roleList.forEach(i -> {
+                        SysRoleInfoVo sysRoleInfoVo = new SysRoleInfoVo();
+                        sysRoleInfoVo.setId(i.getId());
+                        sysRoleInfoVo.setName(i.getName());
+                        sysRoleInfoVos.add(sysRoleInfoVo);
+                    }
+            );
+            return sysRoleInfoVos;
+        }
+        return null;
     }
 
     @Override
@@ -160,20 +193,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         SysUserVo userVo = new SysUserVo();
         BeanUtils.copyProperties(byId, userVo);
         //包装角色信息
-        SysUserRole userRole = userRoleService.getById(id);
-        if (ObjectUtils.isNotEmpty(userRole)){
-            SysRole role = roleService.getById(userRole.getRid());
-            userVo.setRole(role.getName());
-            userVo.setRid(role.getId());
-        }
-
-
+        userVo.setRole(getRoleList(id));
         return userVo;
     }
 
     @Override
     public List<SysUserVo> getIdAndName() {
-        List<SysUserVo> collect = list().stream().map(item -> {
+        return list().stream().map(item -> {
             SysUserVo userVo = new SysUserVo();
             userVo.setId(item.getId());
             if (StringUtils.isNotEmpty(item.getName())) {
@@ -182,7 +208,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             }
             return userVo;
         }).collect(Collectors.toList());
-        return collect;
     }
 
     @Override
@@ -208,11 +233,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             SysUserVo userVo = new SysUserVo();
             BeanUtils.copyProperties(o, userVo);
             //包装角色信息
-            SysUserRole userRole = userRoleService.getById(o.getId());
-            if (ObjectUtils.isNotEmpty(userRole)) {
-                SysRole role = roleService.getById(userRole.getRid());
-                userVo.setRole(role.getName());
-            }
+            userVo.setRole(getRoleList(userVo.getId()));
             return userVo;
         }).collect(Collectors.toList());
         PageUtils pageUtils = new PageUtils(page);
@@ -224,25 +245,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     public void saveUser(SysUser sysUser) {
         ArrayList<String> userLoginName = baseMapper.selectLoginName();
         // 查询是否有重复的登入名
-        if(userLoginName.contains(sysUser.getLoginname())){
-            throw new RRException("duplicationLoginName", 500);
+        if (userLoginName.contains(sysUser.getLoginname())) {
+            throw new RRException("重复登入名", 500);
+        }
+        if(StringUtils.isEmpty(sysUser.getPwd())){
+            sysUser.setPwd(passwordEncoder.encode("123456"));
         }
         save(sysUser);
     }
 
     @Override
     public void updatePwdById(SysUserPwdVo userPwdVo) {
-        if(userPwdVo==null){
+        if (userPwdVo == null) {
             throw new RRException("User is Null", 500);
         }
-        if(StringUtils.isEmpty(userPwdVo.getOldPwd())&&StringUtils.isEmpty(userPwdVo.getPwd())){
+        if (StringUtils.isEmpty(userPwdVo.getOldPwd()) && StringUtils.isEmpty(userPwdVo.getPwd())) {
             throw new RRException("Password is Null", 500);
         }
         SysUser sysUser = baseMapper.selectById(userPwdVo.getId());
-        if(sysUser==null){
+        if (sysUser == null) {
             throw new RRException("User does Not Exist", 500);
         }
-        if(!passwordEncoder.matches(userPwdVo.getOldPwd(), sysUser.getPwd())){
+        if (!passwordEncoder.matches(userPwdVo.getOldPwd(), sysUser.getPwd())) {
             throw new RRException("Password Error", 500);
         }
         sysUser.setPwd(passwordEncoder.encode(userPwdVo.getPwd()));

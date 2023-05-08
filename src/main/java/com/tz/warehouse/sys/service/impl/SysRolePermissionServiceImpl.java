@@ -2,7 +2,9 @@ package com.tz.warehouse.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tz.warehouse.sys.common.utils.RRException;
 import com.tz.warehouse.sys.entity.SysRolePermission;
 import com.tz.warehouse.sys.mapper.SysRolePermissionMapper;
 import com.tz.warehouse.sys.service.SysPermissionService;
@@ -30,6 +32,9 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
 
     @Override
     public List<Long> getRelationPermission(List<Long> rid) {
+        if(CollectionUtils.isEmpty(rid)){
+            throw new RRException("无权限");
+        }
         List<SysRolePermission> list = list(new LambdaQueryWrapper<SysRolePermission>().in(SysRolePermission::getRid, rid));
         HashSet<String> set = new HashSet<>();
         //把字符串转换成List集合，并且去重

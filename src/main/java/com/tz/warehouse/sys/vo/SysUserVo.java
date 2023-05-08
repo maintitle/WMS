@@ -2,6 +2,9 @@ package com.tz.warehouse.sys.vo;
 
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by TangZhen on 2022/11/19
  */
@@ -15,6 +18,7 @@ public class SysUserVo {
     private Integer deptid;
     private Integer available;
     private Integer ordernum;
-    private String role;
+    private List<Long> role;
     private Long rid;
+    private Date hiredate;
 }

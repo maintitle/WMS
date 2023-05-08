@@ -7,12 +7,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tz.warehouse.sys.common.utils.PageUtils;
 import com.tz.warehouse.sys.common.utils.Query;
 import com.tz.warehouse.sys.entity.SysRole;
-import com.tz.warehouse.sys.service.SysRoleService;
 import com.tz.warehouse.sys.mapper.SysRoleMapper;
+import com.tz.warehouse.sys.service.SysRoleService;
+import com.tz.warehouse.sys.vo.SysRoleInfoVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author lenovo
@@ -40,6 +42,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
         IPage<SysRole> page = page(new Query<SysRole>().getPage(params), queryWrapper);
         return new PageUtils(page);
 
+    }
+
+    @Override
+    public List<SysRoleInfoVo> getIdAndNameList() {
+        LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<SysRole>().eq(SysRole::getAvailable, 1);
+        return list(queryWrapper).stream().map(i -> {
+            SysRoleInfoVo sysRoleInfoVo = new SysRoleInfoVo();
+            sysRoleInfoVo.setId(i.getId());
+            sysRoleInfoVo.setName(i.getName());
+            return sysRoleInfoVo;
+        }).collect(Collectors.toList());
     }
 }
 
